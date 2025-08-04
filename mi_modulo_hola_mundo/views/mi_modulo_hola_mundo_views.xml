@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mi_modulo_hola_mundo_view_form" model="ir.ui.view">
+        <field name="name">mi.modulo.hola.mundo.mensaje.form</field>
+        <field name="model">mi_modulo_hola_mundo.mensaje</field>
+        <field name="arch" type="xml">
+            <form string="Mensaje Hola Mundo">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="fecha_creacion"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="mi_modulo_hola_mundo_view_tree" model="ir.ui.view">
+        <field name="name">mi.modulo.hola.mundo.mensaje.tree</field>
+        <field name="model">mi_modulo_hola_mundo.mensaje</field>
+        <field name="arch" type="xml">
+            <tree string="Mensajes Hola Mundo">
+                <field name="name"/>
+                <field name="fecha_creacion"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mi_modulo_hola_mundo_action" model="ir.actions.act_window">
+        <field name="name">Hola Mundo</field>
+        <field name="res_model">mi_modulo_hola_mundo.mensaje</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                ¡Crea tu primer mensaje de Hola Mundo!
+            </p>
+        </field>
+    </record>
+</odoo>

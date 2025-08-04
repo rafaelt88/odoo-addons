@@ -1,0 +1,336 @@
+/* SaaS Website Plans - Modern CSS */
+
+.saas-plans-page {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+
+/* Hero Section */
+.saas-hero {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.saas-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+}
+
+.saas-hero .container {
+    position: relative;
+    z-index: 2;
+}
+
+/* Plan Cards */
+.plan-card {
+    border: 2px solid #e5e7eb;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.plan-card:hover {
+    border-color: #6366f1;
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(99, 102, 241, 0.1);
+}
+
+.plan-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+}
+
+.plan-badge .badge {
+    font-size: 0.75rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+}
+
+.plan-name {
+    color: #1f2937;
+    font-weight: 700;
+}
+
+.plan-description {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.pricing-section {
+    padding: 1.5rem 0;
+    border-top: 1px solid #f3f4f6;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.price-display {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.price-amount {
+    font-weight: 800;
+    color: #6366f1;
+}
+
+.price-period {
+    font-size: 1rem;
+}
+
+.yearly-price {
+    margin-top: 0.5rem;
+}
+
+.features-list ul {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.features-list li {
+    padding: 0.25rem 0;
+    font-size: 0.95rem;
+}
+
+.features-list .fa-check {
+    width: 16px;
+    height: 16px;
+    font-size: 0.875rem;
+}
+
+.plan-actions .btn {
+    border-radius: 8px;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+}
+
+.plan-actions .btn-primary {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    border: none;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.plan-actions .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+}
+
+/* Comparison Table */
+.table-responsive {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.table th {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    color: white;
+    border: none;
+    padding: 1rem;
+    font-weight: 600;
+}
+
+.table td {
+    padding: 1rem;
+    border-color: #f3f4f6;
+    vertical-align: middle;
+}
+
+.table tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+/* Checkout Pages */
+.checkout-page .plan-summary-card .card {
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+}
+
+.checkout-page .plan-summary-card .card-header {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.checkout-form-card .card {
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+}
+
+.checkout-form-card .form-control {
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    padding: 0.75rem 1rem;
+}
+
+.checkout-form-card .form-control:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.checkout-form-card .btn-primary {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    border: none;
+    border-radius: 8px;
+    padding: 1rem 2rem;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.checkout-form-card .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+}
+
+/* Trust Indicators */
+.trust-indicators .trust-item {
+    padding: 1.5rem;
+}
+
+.trust-indicators .fa {
+    margin-bottom: 1rem;
+}
+
+.trust-indicators h6 {
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+/* Success/Error Pages */
+.checkout-success-page .success-icon,
+.checkout-error-page .error-icon {
+    margin-bottom: 2rem;
+}
+
+.confirmation-details .card {
+    border: 2px solid #10b981;
+    background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+}
+
+.next-steps-card .card {
+    border: 1px solid #e5e7eb;
+}
+
+.step-item {
+    padding: 0.5rem 0;
+}
+
+.step-number {
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+/* Plan Detail Page */
+.plan-detail-page .pricing-options .card {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.plan-detail-page .pricing-options .card:hover {
+    border-color: #6366f1;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1);
+}
+
+.plan-detail-page .plan-features {
+    background: #f8fafc;
+    padding: 2rem;
+    border-radius: 12px;
+}
+
+.related-plans .card {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.related-plans .card:hover {
+    border-color: #6366f1;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(99, 102, 241, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .saas-hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .plan-card {
+        margin-bottom: 2rem;
+    }
+
+    .pricing-options .pricing-option {
+        display: block !important;
+        margin: 1rem 0 !important;
+    }
+
+    .table-responsive {
+        font-size: 0.875rem;
+    }
+
+    .checkout-page .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.plan-card {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.plan-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.plan-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.plan-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.plan-card:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+/* Custom Scrollbar for Features List */
+.features-list ul::-webkit-scrollbar {
+    width: 4px;
+}
+
+.features-list ul::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.features-list ul::-webkit-scrollbar-thumb {
+    background: #6366f1;
+    border-radius: 4px;
+}
+
+.features-list ul::-webkit-scrollbar-thumb:hover {
+    background: #4f46e5;
+}

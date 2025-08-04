@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Product Combo Tree View -->
+    <record id="view_product_combo_tree" model="ir.ui.view">
+        <field name="name">product.combo.tree</field>
+        <field name="model">product.combo</field>
+        <field name="arch" type="xml">
+            <tree string="Product Combos" sample="1">
+                <field name="name"/>
+                <field name="original_price" widget="monetary"/>
+                <field name="price_total" widget="monetary"/>
+                <field name="discount_percentage" string="Discount %" widget="float" options="{'digits': [16, 2]}"/>
+                <field name="website_published" widget="boolean_toggle"/>
+                <field name="active" widget="boolean_toggle"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Product Combo Form View -->
+    <record id="view_product_combo_form" model="ir.ui.view">
+        <field name="name">product.combo.form</field>
+        <field name="model">product.combo</field>
+        <field name="arch" type="xml">
+            <form string="Product Combo">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object"
+                                class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button"
+                                   options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Combo Name..."/>
+                        </h1>
+                    </div>
+                    
+                    <group>
+                        <group>
+                            <field name="original_price" widget="monetary" readonly="1"/>
+                            <field name="discount_percentage" string="Discount %" widget="float" 
+                                   options="{'digits': [16, 2]}" 
+                                   placeholder="e.g. 10.5 for 10.5% discount"
+                                   help="Enter discount percentage (e.g. 10.5 for 10.5% off). Combo price will be calculated automatically."/>
+                            <field name="price_total" widget="monetary" readonly="1"/>
+                            <field name="discount_amount" widget="monetary" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="website_published"/>
+                        </group>
+                    </group>
+                    
+                    <notebook>
+                        <page string="Combo Products" name="combo_products">
+                            <field name="combo_line_ids">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="product_id" domain="[('sale_ok', '=', True)]"/>
+                                    <field name="quantity"/>
+                                    <field name="unit_price" readonly="1"/>
+                                    <field name="subtotal" sum="Total"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Description" name="description">
+                            <field name="description"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Product Combo Search View -->
+    <record id="view_product_combo_search" model="ir.ui.view">
+        <field name="name">product.combo.search</field>
+        <field name="model">product.combo</field>
+        <field name="arch" type="xml">
+            <search string="Product Combos">
+                <field name="name" string="Combo"/>
+                <field name="combo_line_ids" string="Products"/>
+                <separator/>
+                <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter string="Published on Website" name="website_published" 
+                        domain="[('website_published', '=', True)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="group_active" domain="[]" 
+                            context="{'group_by': 'active'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Product Combo Kanban View -->
+    <record id="view_product_combo_kanban" model="ir.ui.view">
+        <field name="name">product.combo.kanban</field>
+        <field name="model">product.combo</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" sample="1">
+                <field name="name"/>
+                <field name="price_total"/>
+                <field name="original_price"/>
+                <field name="discount_percentage"/>
+                <field name="image"/>
+                <field name="active"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click #{!record.active.raw_value ? 'o_kanban_color_2' : ''}">
+                            <div class="o_kanban_image">
+                                <img t-att-src="kanban_image('product.combo', 'image', record.id.raw_value)" alt="Combo"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title">
+                                    <field name="name"/>
+                                </strong>
+                                <div class="o_kanban_record_subtitle">
+                                    <i class="fa fa-money" title="Combo Price"/> <field name="price_total" widget="monetary"/>
+                                </div>
+                                <div class="o_kanban_record_subtitle">
+                                    <i class="fa fa-percent" title="Discount"/> <field name="discount_percentage"/>%
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Update Action to include all views -->
+    <record id="action_product_combo" model="ir.actions.act_window">
+        <field name="name">Product Combos</field>
+        <field name="res_model">product.combo</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_id" ref="view_product_combo_kanban"/>
+        <field name="search_view_id" ref="view_product_combo_search"/>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first product combo!
+            </p>
+            <p>
+                Combos allow you to group multiple products together with special pricing.
+                This helps increase your average order value and provides better deals for customers.
+            </p>
+        </field>
+    </record>
+</odoo>

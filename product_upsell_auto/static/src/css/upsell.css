@@ -1,0 +1,110 @@
+/* Product Upsell Auto Styles */
+
+.upsell-section {
+    background-color: #f8f9fa;
+    padding: 2rem 0;
+    border-radius: 10px;
+    margin: 2rem 0;
+}
+
+.upsell-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+}
+
+.upsell-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+}
+
+.upsell-image {
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.upsell-image-placeholder {
+    height: 200px;
+    background-color: #e9ecef;
+}
+
+.upsell-sidebar-widget {
+    position: sticky;
+    top: 20px;
+    margin-bottom: 20px;
+}
+
+.upsell-sidebar-widget .card {
+    border: 1px solid #dee2e6;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.upsell-sidebar-widget img {
+    border: 1px solid #dee2e6;
+}
+
+.price-info .text-success {
+    font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .upsell-section {
+        padding: 1rem 0;
+        margin: 1rem 0;
+    }
+
+    .upsell-image {
+        height: 150px;
+    }
+
+    .upsell-image-placeholder {
+        height: 150px;
+    }
+
+    .upsell-sidebar-widget {
+        position: relative;
+        margin-top: 2rem;
+    }
+}
+
+/* Animation for upsell cards */
+.upsell-card {
+    animation: fadeInUp 0.6s ease forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.upsell-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.upsell-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.upsell-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.upsell-card:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Badge styles */
+.badge.bg-success {
+    background-color: #28a745 !important;
+}
+
+/* Button hover effects */
+.btn-outline-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}

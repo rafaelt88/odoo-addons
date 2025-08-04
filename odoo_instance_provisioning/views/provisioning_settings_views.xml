@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Provisioning Settings Form View -->
+    <record id="view_provisioning_settings_form" model="ir.ui.view">
+        <field name="name">provisioning.settings.form</field>
+        <field name="model">res.config.settings</field>
+        <field name="arch" type="xml">
+            <form string="Instance Provisioning Settings">
+                <div class="o_setting_container">
+                    <div class="row mt16 o_settings_container">
+                        
+                        <!-- Basic Settings -->
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="saas_base_domain"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="saas_base_domain"/>
+                                <div class="text-muted">
+                                    Base domain for instance sub-domains
+                                </div>
+                                <field name="saas_base_domain" placeholder="example.com"/>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="saas_docker_image"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="saas_docker_image"/>
+                                <div class="text-muted">
+                                    Docker image for Odoo instances
+                                </div>
+                                <field name="saas_docker_image" placeholder="odoo:17.0"/>
+                            </div>
+                        </div>
+                        
+                        <!-- Instance Limits -->
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="saas_max_instances_per_plan"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="saas_max_instances_per_plan"/>
+                                <div class="text-muted">
+                                    Maximum instances per plan
+                                </div>
+                                <field name="saas_max_instances_per_plan"/>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="saas_default_cpu_limit"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="saas_default_cpu_limit"/>
+                                <div class="text-muted">
+                                    Default CPU limit (cores)
+                                </div>
+                                <field name="saas_default_cpu_limit"/>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="saas_default_memory_limit"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="saas_default_memory_limit"/>
+                                <div class="text-muted">
+                                    Default memory limit (MB)
+                                </div>
+                                <field name="saas_default_memory_limit"/>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="saas_default_storage_limit"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="saas_default_storage_limit"/>
+                                <div class="text-muted">
+                                    Default storage limit (GB)
+                                </div>
+                                <field name="saas_default_storage_limit"/>
+                            </div>
+                        </div>
+                        
+                        <!-- Backup Settings -->
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="saas_enable_auto_backup"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="saas_enable_auto_backup"/>
+                                <div class="text-muted">
+                                    Enable automatic backups
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="saas_backup_path"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="saas_backup_path"/>
+                                <div class="text-muted">
+                                    Directory path for storing backups
+                                </div>
+                                <field name="saas_backup_path" placeholder="/opt/odoo/backups"/>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12 col-lg-6 o_setting_box" invisible="not saas_enable_auto_backup">
+                            <div class="o_setting_left_pane">
+                                <field name="saas_backup_retention_days"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="saas_backup_retention_days"/>
+                                <div class="text-muted">
+                                    Number of days to keep backup files
+                                </div>
+                                <field name="saas_backup_retention_days"/>
+                            </div>
+                        </div>
+                        
+                        <!-- API Settings -->
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="saas_enable_api_auth"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="saas_enable_api_auth"/>
+                                <div class="text-muted">
+                                    Require authentication for API endpoints
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="saas_api_rate_limit"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="saas_api_rate_limit"/>
+                                <div class="text-muted">
+                                    API requests per hour limit per IP
+                                </div>
+                                <field name="saas_api_rate_limit"/>
+                            </div>
+                        </div>
+                        
+                        <!-- Monitoring Settings -->
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="saas_enable_monitoring"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="saas_enable_monitoring"/>
+                                <div class="text-muted">
+                                    Enable automatic resource usage monitoring
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12 col-lg-6 o_setting_box" invisible="not saas_enable_monitoring">
+                            <div class="o_setting_left_pane">
+                                <field name="saas_monitoring_interval"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="saas_monitoring_interval"/>
+                                <div class="text-muted">
+                                    Monitoring interval in minutes
+                                </div>
+                                <field name="saas_monitoring_interval"/>
+                            </div>
+                        </div>
+                        
+                        <!-- Notification Settings -->
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="saas_enable_notifications"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="saas_enable_notifications"/>
+                                <div class="text-muted">
+                                    Send email notifications for important events
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12 col-lg-6 o_setting_box" invisible="not saas_enable_notifications">
+                            <div class="o_setting_left_pane">
+                                <field name="saas_admin_email"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="saas_admin_email"/>
+                                <div class="text-muted">
+                                    Email address for admin notifications
+                                </div>
+                                <field name="saas_admin_email" placeholder="admin@company.com"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer>
+                    <button string="Save" type="object" name="execute" class="btn-primary"/>
+                    <button string="Cancel" type="object" name="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

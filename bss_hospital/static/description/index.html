@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hospital Management System (bss_hospital)</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="container py-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <div class="card shadow-sm mb-4">
+            <div class="card-body">
+              <h1 class="card-title text-primary mb-3">
+                <i class="fa-solid fa-hospital me-2"></i>Hospital Management
+                System
+              </h1>
+              <img
+                src="banner.jpg"
+                alt="Hospital Management Banner"
+                class="img-fluid rounded mx-auto d-block mb-4"
+                style="max-width: 600px"
+              />
+              <h2 class="h4 text-info mt-4">Overview</h2>
+              <p>
+                This Odoo module provides a comprehensive Hospital Management
+                System, designed to streamline and automate hospital operations.
+                Developed by <strong>BeeSmart Solutions</strong>, it is
+                compatible with <strong>Odoo 17</strong>.
+              </p>
+              <h2 class="h4 text-info mt-4">Key Features</h2>
+              <ul class="list-group list-group-flush mb-4">
+                <li class="list-group-item">
+                  <strong>Patient Management:</strong> Create, view, and manage
+                  patient records, including read-only views for restricted
+                  access.
+                </li>
+                <li class="list-group-item">
+                  <strong>Appointment Scheduling:</strong> Manage appointments
+                  and appointment lines for efficient patient-doctor
+                  interactions.
+                </li>
+                <li class="list-group-item">
+                  <strong>Patient Tagging:</strong> Organize patients using
+                  customizable tags for better categorization and filtering.
+                </li>
+                <li class="list-group-item">
+                  <strong>Accounting Integration:</strong> Link hospital
+                  operations with Odoo's accounting module for billing and
+                  financial management.
+                </li>
+                <li class="list-group-item">
+                  <strong>Product Integration:</strong> Utilize Odoo's product
+                  management for hospital inventory and services.
+                </li>
+                <li class="list-group-item">
+                  <strong>Mail Integration:</strong> Communicate and notify
+                  stakeholders using Odoo's mail features.
+                </li>
+                <li class="list-group-item">
+                  <strong>Access Control & Security:</strong> Robust security
+                  rules and access rights to protect sensitive data.
+                </li>
+                <li class="list-group-item">
+                  <strong>Custom Sequences:</strong> Automated sequence
+                  generation for records to ensure unique identification.
+                </li>
+                <li class="list-group-item">
+                  <strong>Intuitive Menu & Views:</strong> User-friendly menus
+                  and views for easy navigation and operation.
+                </li>
+              </ul>
+              <h2 class="h4 text-info mt-4">Installation</h2>
+              <ol class="mb-4">
+                <li>
+                  Copy the <code>bss_hospital</code> folder to your Odoo
+                  <code>addons</code> directory.
+                </li>
+                <li>
+                  Update the app list and install the module from the Odoo
+                  interface.
+                </li>
+              </ol>
+              <h2 class="h4 text-info mt-4">Dependencies</h2>
+              <ul class="list-inline mb-4">
+                <li class="list-inline-item badge bg-secondary">mail</li>
+                <li class="list-inline-item badge bg-secondary">product</li>
+                <li class="list-inline-item badge bg-secondary">account</li>
+              </ul>
+              <h2 class="h4 text-info mt-4">Data Files</h2>
+              <ul class="list-group list-group-flush mb-4">
+                <li class="list-group-item">
+                  Security rules and access rights
+                </li>
+                <li class="list-group-item">Sequence configuration</li>
+                <li class="list-group-item">
+                  Patient, appointment, tag, and account views
+                </li>
+                <li class="list-group-item">Menu definitions</li>
+              </ul>
+              <div class="row mt-4">
+                <div class="col-md-6">
+                  <div class="alert alert-light border">
+                    <strong>License:</strong> LGPL-3
+                  </div>
+                </div>
+                <div class="col-md-6 text-md-end">
+                  <div class="alert alert-light border">
+                    <strong>Author:</strong> BeeSmart Solutions
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

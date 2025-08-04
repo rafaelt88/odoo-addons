@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Extend Product Template Form -->
+    <record id="view_product_template_form_inherit" model="ir.ui.view">
+        <field name="name">product.template.form.inherit.promotions</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button name="action_view_combos" type="object"
+                        class="oe_stat_button" icon="fa-cubes"
+                        invisible="combo_count == 0">
+                    <field name="combo_count" widget="statinfo" string="Combos"/>
+                </button>
+            </div>
+            
+            <page name="sales" position="after">
+                <page string="Upsell / Cross-sell" name="promotions">
+                    <group>
+                        <group string="Upsell Products">
+                            <field name="upsell_ids" widget="many2many_tags" 
+                                   domain="[('id', '!=', id), ('sale_ok', '=', True)]"
+                                   options="{'color_field': 'color'}"
+                                   help="Suggest these higher-end alternatives to customers"/>
+                        </group>
+                        <group string="Cross-sell Products">
+                            <field name="cross_sell_ids" widget="many2many_tags"
+                                   domain="[('id', '!=', id), ('sale_ok', '=', True)]"
+                                   options="{'color_field': 'color'}"
+                                   help="Suggest these complementary products"/>
+                        </group>
+                    </group>
+                </page>
+            </page>
+        </field>
+    </record>
+
+    <!-- Product Template Tree View with Combo Info -->
+    <record id="view_product_template_tree_inherit" model="ir.ui.view">
+        <field name="name">product.template.tree.inherit.promotions</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="list_price" position="after">
+                <field name="combo_count" string="Combos" optional="hide"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Product Search View -->
+    <record id="view_product_template_search_inherit" model="ir.ui.view">
+        <field name="name">product.template.search.inherit.promotions</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+            </field>
+            <filter name="services" position="after">
+                <separator/>
+                <filter string="In Combos" name="in_combos" 
+                        domain="[('combo_count', '>', 0)]"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

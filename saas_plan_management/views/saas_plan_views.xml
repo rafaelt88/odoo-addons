@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- SaaS Plan Tree View -->
+        <record id="view_saas_plan_tree" model="ir.ui.view">
+            <field name="name">saas.plan.tree</field>
+            <field name="model">saas.plan</field>
+            <field name="arch" type="xml">
+                <tree decoration-bf="plan_type == 'premium'" decoration-info="plan_type == 'standard'" decoration-muted="not active">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="plan_type"/>
+                    <field name="monthly_price" widget="monetary"/>
+                    <field name="yearly_price" widget="monetary"/>
+                    <field name="max_users"/>
+                    <field name="storage_limit_gb"/>
+                    <field name="module_count"/>
+                    <!-- <field name="instance_count"/> -->
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- SaaS Plan Form View -->
+        <record id="view_saas_plan_form" model="ir.ui.view">
+            <field name="name">saas.plan.form</field>
+            <field name="model">saas.plan</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="duplicate_plan" type="object" string="Duplicate Plan" class="btn-secondary"/>
+                        <field name="active" widget="boolean_toggle"/>
+                    </header>
+                    <sheet>
+                        <!-- <div class="oe_button_box" name="button_box">
+                            <button name="action_view_instances" type="object" class="oe_stat_button" icon="fa-desktop">
+                                <field name="instance_count" widget="statinfo" string="Instances"/>
+                            </button>
+                        </div> -->
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" placeholder="Plan Name"/></h1>
+                        </div>
+                        
+                        <group>
+                            <group name="basic_info">
+                                <field name="code"/>
+                                <field name="plan_type"/>
+                                <field name="billing_cycle"/>
+                                <field name="sequence"/>
+                            </group>
+                            <group name="status">
+                                <field name="currency_id"/>
+                                <field name="module_count"/>
+                                <field name="addon_count"/>
+                                <!-- <field name="instance_count"/> -->
+                            </group>
+                        </group>
+                        
+                        <field name="description" placeholder="Plan description..."/>
+                        
+                        <notebook>
+                            <page string="Pricing" name="pricing">
+                                <group>
+                                    <group name="base_pricing">
+                                        <field name="monthly_price" widget="monetary"/>
+                                        <field name="quarterly_price" widget="monetary"/>
+                                        <field name="yearly_price" widget="monetary"/>
+                                        <field name="setup_fee" widget="monetary"/>
+                                    </group>
+                                    <group name="computed_pricing">
+                                        <field name="effective_monthly_price" widget="monetary" readonly="1"/>
+                                        <field name="effective_yearly_price" widget="monetary" readonly="1"/>
+                                    </group>
+                                </group>
+                            </page>
+                            
+                            <page string="Limits &amp; Features" name="limits">
+                                <group string="User Limits">
+                                    <group>
+                                        <field name="max_users"/>
+                                        <field name="unlimited_users"/>
+                                    </group>
+                                </group>
+                                
+                                <group string="Storage &amp; Data Limits">
+                                    <group>
+                                        <field name="storage_limit_gb"/>
+                                        <field name="unlimited_storage"/>
+                                    </group>
+                                    <group>
+                                        <field name="transaction_limit_monthly"/>
+                                        <field name="unlimited_transactions"/>
+                                    </group>
+                                </group>
+                                
+                                <group string="API &amp; Communication Limits">
+                                    <group>
+                                        <field name="api_calls_limit_daily"/>
+                                        <field name="unlimited_api_calls"/>
+                                    </group>
+                                    <group>
+                                        <field name="email_limit_monthly"/>
+                                        <field name="unlimited_emails"/>
+                                    </group>
+                                </group>
+                                
+                                <group string="Features">
+                                    <group>
+                                        <field name="multi_company_support"/>
+                                        <field name="custom_domain_support"/>
+                                        <field name="api_access_enabled"/>
+                                    </group>
+                                    <group>
+                                        <field name="priority_support"/>
+                                        <field name="white_label_option"/>
+                                        <field name="backup_frequency"/>
+                                    </group>
+                                </group>
+                            </page>
+                            
+                            <page string="Included Modules" name="modules">
+                                <field name="included_module_ids" nolabel="1">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="technical_name"/>
+                                        <field name="category"/>
+                                        <field name="is_core_module"/>
+                                        <field name="is_popular"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            
+                            <page string="Add-ons" name="addons">
+                                <field name="addon_ids" nolabel="1">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="addon_type"/>
+                                        <field name="monthly_price" widget="monetary"/>
+                                        <field name="is_required"/>
+                                        <field name="active"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <!-- SaaS Plan Kanban View -->
+        <record id="view_saas_plan_kanban" model="ir.ui.view">
+            <field name="name">saas.plan.kanban</field>
+            <field name="model">saas.plan</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="plan_type" class="o_kanban_small_column">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="plan_type"/>
+                    <field name="monthly_price"/>
+                    <field name="yearly_price"/>
+                    <field name="max_users"/>
+                    <field name="module_count"/>
+                    <!-- <field name="instance_count"/> -->
+                    <field name="active"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="#{kanban_color(record.plan_type.raw_value)} oe_kanban_card oe_kanban_global_click">
+                                <div class="oe_kanban_content">
+                                    <div class="o_kanban_record_title">
+                                        <strong><field name="name"/></strong>
+                                    </div>
+                                    <div class="o_kanban_record_subtitle">
+                                        <field name="code"/> - <field name="plan_type"/>
+                                    </div>
+                                    <div class="oe_kanban_details">
+                                        <ul>
+                                            <li t-if="record.monthly_price.value">
+                                                <strong>Monthly:</strong> 
+                                                <field name="monthly_price" widget="monetary"/>
+                                            </li>
+                                            <li t-if="record.yearly_price.value">
+                                                <strong>Yearly:</strong> 
+                                                <field name="yearly_price" widget="monetary"/>
+                                            </li>
+                                            <li><strong>Max Users:</strong> <field name="max_users"/></li>
+                                            <li><strong>Modules:</strong> <field name="module_count"/></li>
+                                            <!-- <li><strong>Instances:</strong> <field name="instance_count"/></li> -->
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        
+        <!-- SaaS Plan Search View -->
+        <record id="view_saas_plan_search" model="ir.ui.view">
+            <field name="name">saas.plan.search</field>
+            <field name="model">saas.plan</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" string="Plan Name"/>
+                    <field name="code" string="Plan Code"/>
+                    <field name="description"/>
+                    <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                    <filter string="Inactive" name="inactive" domain="[('active', '=', False)]"/>
+                    <separator/>
+                    <filter string="Free" name="free" domain="[('plan_type', '=', 'free')]"/>
+                    <filter string="Basic" name="basic" domain="[('plan_type', '=', 'basic')]"/>
+                    <filter string="Standard" name="standard" domain="[('plan_type', '=', 'standard')]"/>
+                    <filter string="Premium" name="premium" domain="[('plan_type', '=', 'premium')]"/>
+                    <filter string="Enterprise" name="enterprise" domain="[('plan_type', '=', 'enterprise')]"/>
+                    <separator/>
+                    <filter string="Monthly Billing" name="monthly" domain="[('billing_cycle', '=', 'monthly')]"/>
+                    <filter string="Yearly Billing" name="yearly" domain="[('billing_cycle', '=', 'yearly')]"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="Plan Type" name="group_plan_type" domain="[]" context="{'group_by': 'plan_type'}"/>
+                        <filter string="Billing Cycle" name="group_billing_cycle" domain="[]" context="{'group_by': 'billing_cycle'}"/>
+                        <filter string="Status" name="group_active" domain="[]" context="{'group_by': 'active'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- SaaS Plan Actions -->
+        <record id="action_saas_plan" model="ir.actions.act_window">
+            <field name="name">SaaS Plans</field>
+            <field name="res_model">saas.plan</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first SaaS plan!
+                </p>
+                <p>
+                    Define service plans with pricing, limits, and included modules.
+                </p>
+            </field>        
+        </record>
+
+    </data>
+</odoo>

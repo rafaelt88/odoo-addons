@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Menu Items -->
+    <menuitem
+        id="menu_product_promotions_root"
+        name="Product Promotions"
+        parent="sale.sale_menu_root"
+        sequence="50"/>
+
+    <menuitem
+        id="menu_product_combos"
+        name="Product Combos"
+        parent="menu_product_promotions_root"
+        action="action_product_combo"
+        sequence="10"/>
+
+    <!-- Actions -->
+    <record id="action_product_combo" model="ir.actions.act_window">
+        <field name="name">Product Combos</field>
+        <field name="res_model">product.combo</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first product combo!
+            </p>
+            <p>
+                Combos allow you to group multiple products together with special pricing.
+                This helps increase your average order value and provides better deals for customers.
+            </p>
+        </field>
+    </record>
+</odoo>

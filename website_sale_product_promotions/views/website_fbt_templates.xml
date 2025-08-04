@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="fbt_products_section" name="Website Frequently Bought Together Section">
+        <t t-set="fbt_products" t-value="product.get_fbt_products()"/>
+        <t t-if="fbt_products">
+            <section class="oe_fbt_section mt32 container">
+                <div class="d-flex align-items-center mb-3">
+                    <span class="fa fa-bolt me-2" style="font-size: 1.5em; color: #333;"></span>
+                    <h3 class="mb-0 flex-grow-1">Frequently Bought Together</h3>
+                    <button type="button" class="fbt-carousel-nav prev" aria-label="Previous"><span class="fa fa-angle-left"></span></button>
+                    <button type="button" class="fbt-carousel-nav next" aria-label="Next"><span class="fa fa-angle-right"></span></button>
+                </div>
+                <div class="fbt-carousel">
+                    <t t-foreach="fbt_products" t-as="fbt_product">
+                        <div class="fbt-card">
+                            <a t-att-href="'/shop/product/%s' % fbt_product.id">
+                                <t t-if="fbt_product.image_1920">
+                                    <img t-att-src="'/web/image/product.template/%s/image_1920' % fbt_product.id" class="fbt-card-img"/>
+                                </t>
+                            </a>
+                            <div class="px-3 pb-3 d-flex flex-column align-items-stretch">
+                                <a t-att-href="'/shop/product/%s' % fbt_product.id" class="text-decoration-none text-dark">
+                                    <div class="fbt-card-title" t-esc="fbt_product.name"/>
+                                </a>
+                                <t t-if="fbt_product.product_variant_id">
+                                    <div class="fbt-card-price"
+                                            t-esc="fbt_product.product_variant_id.lst_price"
+                                            t-options='{"widget": "monetary", "display_currency": fbt_product.product_variant_id.currency_id}'/>
+                                </t>
+                                <div class="fbt-card-rating mb-1">
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star-o"></span>
+                                    <span class="fbt-card-reviews">(124)</span>
+                                </div>
+                                <form t-attf-action="/shop/cart/update" method="post" class="d-grid">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <input type="hidden" name="product_id" t-att-value="fbt_product.product_variant_id.id if fbt_product.product_variant_id else fbt_product.id"/>
+                                    <input type="hidden" name="add_qty" value="1"/>
+                                    <button type="submit" class="btn btn-primary mt-2"
+                                        t-att-data-product-id="fbt_product.product_variant_id.id if fbt_product.product_variant_id else fbt_product.id"
+                                        data-quantity="1">
+                                        Add to cart
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </section>
+        </t>
+    </template>
+</odoo>

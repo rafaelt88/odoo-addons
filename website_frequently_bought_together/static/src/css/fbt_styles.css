@@ -1,0 +1,104 @@
+html,
+body {
+  overflow: auto !important;
+  height: auto !important;
+}
+.oe_fbt_section {
+  background: #fff;
+  border-radius: 8px;
+  padding: 24px 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  position: relative;
+  overflow: visible !important;
+}
+.oe_fbt_section .fbt-carousel {
+  display: flex;
+  overflow-x: auto !important;
+  overflow-y: visible !important;
+  scroll-behavior: smooth;
+  gap: 24px;
+  padding-bottom: 8px;
+  max-width: 100%;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+.oe_fbt_section .fbt-carousel::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Opera */
+}
+.oe_fbt_section .fbt-card {
+  min-width: 260px;
+  max-width: 260px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.oe_fbt_section .fbt-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+.oe_fbt_section .fbt-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #f8f9fa;
+  border-radius: 8px 8px 0 0;
+  margin-bottom: 8px;
+  display: block;
+}
+.oe_fbt_section .fbt-card-title {
+  font-size: 1.05em;
+  font-weight: 500;
+  margin-bottom: 4px;
+  min-height: 40px;
+}
+.oe_fbt_section .fbt-card-price {
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-bottom: 4px;
+}
+.oe_fbt_section .fbt-card-rating {
+  color: #ffc107;
+  font-size: 1em;
+  margin-bottom: 2px;
+}
+.oe_fbt_section .fbt-card-reviews {
+  color: #888;
+  font-size: 0.95em;
+  margin-left: 4px;
+}
+.oe_fbt_section .fbt-card-btn {
+  width: 100%;
+  margin-top: 8px;
+  border-radius: 4px;
+  border: 1px solid #d0d0d0;
+  background: #f8f9fa;
+  color: #222;
+  font-weight: 500;
+  padding: 6px 0;
+  transition: background 0.2s;
+}
+.oe_fbt_section .fbt-card-btn:hover {
+  background: #e0e0e0;
+}
+.oe_fbt_section .fbt-carousel-nav {
+  border: none;
+  background: #f8f9fa;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  margin-left: 8px;
+  margin-right: 0;
+  color: #333;
+  transition: background 0.2s;
+}
+.oe_fbt_section .fbt-carousel-nav:hover {
+  background: #e0e0e0;
+}

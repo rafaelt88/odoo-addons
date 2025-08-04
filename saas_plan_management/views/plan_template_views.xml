@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Plan Template Tree View -->
+        <record id="view_plan_template_tree" model="ir.ui.view">
+            <field name="name">saas.plan.template.tree</field>
+            <field name="model">saas.plan.template</field>
+            <field name="arch" type="xml">
+                <tree decoration-info="category == 'business'" decoration-warning="category == 'technical'">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="plan_type"/>
+                    <field name="category"/>
+                    <field name="default_monthly_price"/>
+                    <field name="default_yearly_price"/>
+                    <field name="plan_count"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Plan Template Form View -->
+        <record id="view_plan_template_form" model="ir.ui.view">
+            <field name="name">saas.plan.template.form</field>
+            <field name="model">saas.plan.template</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="create_plan_from_template" type="object" string="Create Plan" class="btn-primary"/>
+                        <button name="duplicate_template" type="object" string="Duplicate Template" class="btn-secondary"/>
+                        <field name="active" widget="boolean_toggle"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" placeholder="Template Name"/></h1>
+                        </div>
+                        
+                        <group>
+                            <group name="basic_info">
+                                <field name="code"/>
+                                <field name="plan_type"/>
+                                <field name="category"/>
+                                <field name="sequence"/>
+                            </group>
+                            <group name="stats">
+                                <field name="plan_count"/>
+                            </group>
+                        </group>
+                        
+                        <field name="description" placeholder="Template description..."/>
+                        
+                        <notebook>
+                            <page string="Default Values" name="defaults">
+                                <group string="Default Pricing">
+                                    <group>
+                                        <field name="default_monthly_price"/>
+                                        <field name="default_yearly_price"/>
+                                    </group>
+                                </group>
+                                
+                                <group string="Default Limits">
+                                    <group>
+                                        <field name="default_max_users"/>
+                                        <field name="default_storage_gb"/>
+                                    </group>
+                                    <group>
+                                        <field name="default_api_calls"/>
+                                    </group>
+                                </group>
+                            </page>
+                            
+                            <page string="Default Modules" name="modules">
+                                <field name="default_module_ids" nolabel="1">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="technical_name"/>
+                                        <field name="category"/>
+                                        <field name="is_core_module"/>
+                                        <field name="is_popular"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            
+                            <page string="Template Configuration" name="config">
+                                <field name="template_config" widget="ace" options="{'mode': 'json'}" placeholder='{"field_name": "value"}'/>
+                            </page>
+                            
+                            <page string="Created Plans" name="plans">
+                                <field name="plan_ids" nolabel="1">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="code"/>
+                                        <field name="plan_type"/>
+                                        <field name="monthly_price" widget="monetary"/>
+                                        <field name="active"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Plan Template Kanban View -->
+        <record id="view_plan_template_kanban" model="ir.ui.view">
+            <field name="name">saas.plan.template.kanban</field>
+            <field name="model">saas.plan.template</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="category" class="o_kanban_small_column">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="plan_type"/>
+                    <field name="category"/>
+                    <field name="default_monthly_price"/>
+                    <field name="plan_count"/>
+                    <field name="active"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="#{kanban_color(record.plan_type.raw_value)} oe_kanban_card oe_kanban_global_click">
+                                <div class="oe_kanban_content">
+                                    <div class="o_kanban_record_title">
+                                        <strong><field name="name"/></strong>
+                                    </div>
+                                    <div class="o_kanban_record_subtitle">
+                                        <field name="code"/> - <field name="plan_type"/>
+                                    </div>
+                                    <div class="oe_kanban_details">
+                                        <ul>
+                                            <li><strong>Category:</strong> <field name="category"/></li>
+                                            <li t-if="record.default_monthly_price.value">
+                                                <strong>Default Price:</strong> 
+                                                <field name="default_monthly_price"/>
+                                            </li>
+                                            <li><strong>Plans Created:</strong> <field name="plan_count"/></li>
+                                        </ul>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <button name="create_plan_from_template" type="object" class="btn btn-sm btn-primary">Create Plan</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        
+        <!-- Plan Template Search View -->
+        <record id="view_plan_template_search" model="ir.ui.view">
+            <field name="name">saas.plan.template.search</field>
+            <field name="model">saas.plan.template</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" string="Template Name"/>
+                    <field name="code" string="Template Code"/>
+                    <field name="description"/>
+                    <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                    <filter string="Inactive" name="inactive" domain="[('active', '=', False)]"/>
+                    <separator/>
+                    <filter string="Business" name="business" domain="[('category', '=', 'business')]"/>
+                    <filter string="Technical" name="technical" domain="[('category', '=', 'technical')]"/>
+                    <filter string="Mixed" name="mixed" domain="[('category', '=', 'mixed')]"/>
+                    <separator/>
+                    <filter string="Free" name="free" domain="[('plan_type', '=', 'free')]"/>
+                    <filter string="Basic" name="basic" domain="[('plan_type', '=', 'basic')]"/>
+                    <filter string="Standard" name="standard" domain="[('plan_type', '=', 'standard')]"/>
+                    <filter string="Premium" name="premium" domain="[('plan_type', '=', 'premium')]"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="Category" name="group_category" domain="[]" context="{'group_by': 'category'}"/>
+                        <filter string="Plan Type" name="group_plan_type" domain="[]" context="{'group_by': 'plan_type'}"/>
+                        <filter string="Status" name="group_active" domain="[]" context="{'group_by': 'active'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- Plan Template Actions -->
+        <record id="action_plan_template" model="ir.actions.act_window">
+            <field name="name">Plan Templates</field>
+            <field name="res_model">saas.plan.template</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first plan template!
+                </p>
+                <p>
+                    Templates help you quickly create standardized plans with predefined configurations.
+                </p>
+            </field>
+        </record>
+        
+    </data>
+</odoo>

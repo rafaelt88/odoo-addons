@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fbt_rule,access_fbt_rule,model_website_fbt_rule,base.group_system,1,1,1,1
+access_fbt_rule_public,access_fbt_rule_public,model_website_fbt_rule,base.group_public,1,0,0,0
+access_fbt_rule_portal,access_fbt_rule_portal,model_website_fbt_rule,base.group_portal,1,0,0,0

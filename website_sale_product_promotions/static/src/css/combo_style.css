@@ -1,0 +1,52 @@
+/* Product Combo Styles */
+.combo-card {
+  border: 2px solid #e9ecef;
+  transition: all 0.3s ease;
+}
+
+.combo-card:hover {
+  border-color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(95, 95, 95, 0.2) !important;
+}
+
+.combo-product-item {
+  border: 1px solid #dee2e6;
+  max-width: 200px;
+}
+
+.combo-product-item:hover {
+  background-color: #f8f9fa !important;
+}
+
+.btn-combo-cart {
+  background: linear-gradient(45deg, #28a745, #20c997);
+  border: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-combo-cart:hover {
+  background: linear-gradient(45deg, #218838, #1e9983);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(40, 167, 69, 0.3);
+}
+
+.original-price {
+  font-size: 0.9rem;
+}
+
+.combo-price {
+  font-size: 1.2rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .combo-product-item {
+    max-width: 100%;
+  }
+
+  .combo-product-item .small {
+    font-size: 0.8rem !important;
+  }
+}

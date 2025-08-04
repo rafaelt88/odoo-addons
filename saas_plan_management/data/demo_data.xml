@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        
+        <!-- Demo SaaS Plans -->
+        <record id="plan_basic_demo" model="saas.plan">
+            <field name="name">Basic Plan</field>
+            <field name="code">BASIC</field>
+            <field name="description">Perfect for small businesses getting started with Odoo</field>
+            <field name="plan_type">basic</field>
+            <field name="monthly_price">29.0</field>
+            <field name="yearly_price">290.0</field>
+            <field name="max_users">5</field>
+            <field name="storage_limit_gb">5.0</field>
+            <field name="transaction_limit_monthly">500</field>
+            <field name="api_calls_limit_daily">10000</field>
+            <field name="email_limit_monthly">1000</field>
+            <field name="billing_cycle">monthly</field>
+            <field name="backup_frequency">weekly</field>
+            <field name="included_module_ids" eval="[(6, 0, [ref('module_base'), ref('module_web'), ref('module_mail'), ref('module_crm'), ref('module_sale'), ref('module_account')])]"/>
+            <field name="sequence">10</field>
+            
+            <!-- Features -->
+            <field name="multi_company_support">False</field>
+            <field name="custom_domain_support">False</field>
+            <field name="api_access_enabled">True</field>
+            <field name="priority_support">False</field>
+            <field name="white_label_option">False</field>
+        </record>
+        
+        <record id="plan_standard_demo" model="saas.plan">
+            <field name="name">Standard Plan</field>
+            <field name="code">STANDARD</field>
+            <field name="description">Ideal for growing businesses with advanced features</field>
+            <field name="plan_type">standard</field>
+            <field name="monthly_price">59.0</field>
+            <field name="yearly_price">590.0</field>
+            <field name="max_users">15</field>
+            <field name="storage_limit_gb">25.0</field>
+            <field name="transaction_limit_monthly">2000</field>
+            <field name="api_calls_limit_daily">50000</field>
+            <field name="email_limit_monthly">5000</field>
+            <field name="billing_cycle">monthly</field>
+            <field name="backup_frequency">daily</field>
+            <field name="included_module_ids" eval="[(6, 0, [ref('module_base'), ref('module_web'), ref('module_mail'), ref('module_crm'), ref('module_sale'), ref('module_account'), ref('module_purchase'), ref('module_stock'), ref('module_calendar')])]"/>
+            <field name="sequence">20</field>
+            
+            <!-- Features -->
+            <field name="multi_company_support">True</field>
+            <field name="custom_domain_support">True</field>
+            <field name="api_access_enabled">True</field>
+            <field name="priority_support">False</field>
+            <field name="white_label_option">False</field>
+        </record>
+        
+        <record id="plan_professional_demo" model="saas.plan">
+            <field name="name">Professional Plan</field>
+            <field name="code">PROFESSIONAL</field>
+            <field name="description">Complete business solution with premium support</field>
+            <field name="plan_type">premium</field>
+            <field name="monthly_price">99.0</field>
+            <field name="yearly_price">990.0</field>
+            <field name="max_users">50</field>
+            <field name="storage_limit_gb">100.0</field>
+            <field name="unlimited_transactions">True</field>
+            <field name="unlimited_api_calls">True</field>
+            <field name="unlimited_emails">True</field>
+            <field name="billing_cycle">monthly</field>
+            <field name="backup_frequency">daily</field>
+            <field name="included_module_ids" eval="[(6, 0, [ref('module_base'), ref('module_web'), ref('module_mail'), ref('module_crm'), ref('module_sale'), ref('module_account'), ref('module_purchase'), ref('module_stock'), ref('module_hr'), ref('module_project'), ref('module_website'), ref('module_calendar')])]"/>
+            <field name="sequence">30</field>
+            
+            <!-- Features -->
+            <field name="multi_company_support">True</field>
+            <field name="custom_domain_support">True</field>
+            <field name="api_access_enabled">True</field>
+            <field name="priority_support">True</field>
+            <field name="white_label_option">True</field>
+        </record>
+        
+        <!-- Demo Plan Add-ons -->
+        <record id="addon_extra_storage" model="saas.plan.addon">
+            <field name="name">Extra Storage</field>
+            <field name="code">STORAGE_10GB</field>
+            <field name="description">Additional 10GB storage space for your data</field>
+            <field name="plan_id" ref="plan_professional_demo"/>
+            <field name="addon_type">feature</field>
+            <field name="category">storage</field>
+            <field name="monthly_price">15.0</field>
+            <field name="yearly_price">150.0</field>
+            <field name="is_required">False</field>
+            <field name="max_quantity">10</field>
+        </record>
+        
+        <record id="addon_api_premium" model="saas.plan.addon">
+            <field name="name">Premium API Access</field>
+            <field name="code">API_PREMIUM</field>
+            <field name="description">Unlimited API calls and premium endpoints</field>
+            <field name="plan_id" ref="plan_professional_demo"/>
+            <field name="addon_type">service</field>
+            <field name="category">integration</field>
+            <field name="monthly_price">50.0</field>
+            <field name="yearly_price">500.0</field>
+            <field name="is_required">False</field>
+            <field name="max_quantity">1</field>
+        </record>
+        
+        <record id="addon_priority_support" model="saas.plan.addon">
+            <field name="name">Priority Support</field>
+            <field name="code">SUPPORT_PRIORITY</field>
+            <field name="description">24/7 priority support with guaranteed response time</field>
+            <field name="plan_id" ref="plan_professional_demo"/>
+            <field name="addon_type">service</field>
+            <field name="category">support</field>
+            <field name="monthly_price">99.0</field>
+            <field name="yearly_price">999.0</field>
+            <field name="is_required">False</field>
+            <field name="max_quantity">1</field>
+        </record>
+        
+    </data>
+</odoo>

@@ -1,0 +1,55 @@
+<odoo>
+    
+    <record id="action_update_fbt_rules" model="ir.actions.server">
+        <field name="name">Update FBT Rules</field>
+        <field name="model_id" ref="model_website_fbt_rule"/>
+        <field name="state">code</field>
+        <field name="code">
+            model.update_fbt_rules()
+        </field>
+    </record>
+
+    <record id="view_fbt_rule_tree" model="ir.ui.view">
+        <field name="name">website.fbt.rule.tree</field>
+        <field name="model">website.fbt.rule</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="product_id"/>
+                <field name="fbt_product_ids"/>
+                <field name="is_manual"/>
+                <field name="confidence"/>
+                <field name="active"/>
+                <field name="last_update"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_fbt_rule_form" model="ir.ui.view">
+        <field name="name">website.fbt.rule.form</field>
+        <field name="model">website.fbt.rule</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="product_id"/>
+                        <field name="fbt_product_ids" widget="many2many_tags"/>
+                        <field name="is_manual"/>
+                        <field name="confidence"/>
+                        <field name="active"/>
+                        <field name="last_update"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <menuitem id="menu_fbt_root" name="Frequently Bought Together" parent="sale.sale_menu_root"/>
+    <record id="action_fbt_rule" model="ir.actions.act_window">
+        <field name="name">FBT Rules</field>
+        <field name="res_model">website.fbt.rule</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_fbt_rule" name="FBT Rules" parent="menu_fbt_root" action="action_fbt_rule"/>
+    <menuitem id="menu_update_fbt_rules"
+          name="Update FBT Rules"
+          parent="menu_fbt_root"
+          action="action_update_fbt_rules"/>
+</odoo>

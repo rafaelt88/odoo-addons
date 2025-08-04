@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Odoo Module Tree View -->
+        <record id="view_odoo_module_tree" model="ir.ui.view">
+            <field name="name">saas.odoo.module.tree</field>
+            <field name="model">saas.odoo.module</field>
+            <field name="arch" type="xml">
+                <tree decoration-bf="is_core_module" decoration-info="is_popular">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="technical_name"/>
+                    <field name="category"/>
+                    <field name="version"/>
+                    <field name="is_core_module"/>
+                    <field name="is_popular"/>
+                    <field name="is_required"/>
+                    <field name="plan_count"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Odoo Module Form View -->
+        <record id="view_odoo_module_form" model="ir.ui.view">
+            <field name="name">saas.odoo.module.form</field>
+            <field name="model">saas.odoo.module</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="active" widget="boolean_toggle"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" placeholder="Module Name"/></h1>
+                        </div>
+                        
+                        <group>
+                            <group name="basic_info">
+                                <field name="technical_name"/>
+                                <field name="category"/>
+                                <field name="version"/>
+                                <field name="license"/>
+                                <field name="sequence"/>
+                            </group>
+                            <group name="flags">
+                                <field name="is_core_module"/>
+                                <field name="is_popular"/>
+                                <field name="is_required"/>
+                                <field name="plan_count"/>
+                            </group>
+                        </group>
+                        
+                        <group>
+                            <group name="meta_info">
+                                <field name="author"/>
+                                <field name="website"/>
+                            </group>
+                        </group>
+                        
+                        <field name="description" placeholder="Module description..."/>
+                        
+                        <notebook>
+                            <page string="Dependencies" name="dependencies">
+                                <field name="depends" placeholder="Comma-separated list of dependent modules"/>
+                            </page>
+                            
+                            <page string="Used in Plans" name="plans">
+                                <field name="plan_ids" nolabel="1">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="code"/>
+                                        <field name="plan_type"/>
+                                        <field name="monthly_price" widget="monetary"/>
+                                        <field name="active"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Odoo Module Kanban View -->
+        <record id="view_odoo_module_kanban" model="ir.ui.view">
+            <field name="name">saas.odoo.module.kanban</field>
+            <field name="model">saas.odoo.module</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="category" class="o_kanban_small_column">
+                    <field name="name"/>
+                    <field name="technical_name"/>
+                    <field name="category"/>
+                    <field name="is_core_module"/>
+                    <field name="is_popular"/>
+                    <field name="is_required"/>
+                    <field name="plan_count"/>
+                    <field name="active"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="#{kanban_color(record.category.raw_value)} oe_kanban_card oe_kanban_global_click">
+                                <div class="ribbon ribbon-top-right" t-if="record.is_core_module.raw_value">
+                                    <span class="bg-success">Core</span>
+                                </div>
+                                <div class="oe_kanban_content">
+                                    <div class="o_kanban_record_title">
+                                        <strong><field name="name"/></strong>
+                                        <span t-if="record.is_popular.raw_value" class="fa fa-star text-warning" title="Popular"/>
+                                    </div>
+                                    <div class="o_kanban_record_subtitle">
+                                        <field name="technical_name"/>
+                                    </div>
+                                    <div class="oe_kanban_details">
+                                        <ul>
+                                            <li><strong>Category:</strong> <field name="category"/></li>
+                                            <li><strong>Used in:</strong> <field name="plan_count"/> plans</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        
+        <!-- Odoo Module Search View -->
+        <record id="view_odoo_module_search" model="ir.ui.view">
+            <field name="name">saas.odoo.module.search</field>
+            <field name="model">saas.odoo.module</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" string="Module Name"/>
+                    <field name="technical_name" string="Technical Name"/>
+                    <field name="description"/>
+                    <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                    <filter string="Inactive" name="inactive" domain="[('active', '=', False)]"/>
+                    <filter string="Core Modules" name="core" domain="[('is_core_module', '=', True)]"/>
+                    <filter string="Popular Modules" name="popular" domain="[('is_popular', '=', True)]"/>
+                    <filter string="Required Modules" name="required" domain="[('is_required', '=', True)]"/>
+                    <separator/>
+                    <filter string="Accounting" name="accounting" domain="[('category', '=', 'accounting')]"/>
+                    <filter string="Sales" name="sales" domain="[('category', '=', 'sales')]"/>
+                    <filter string="Purchase" name="purchase" domain="[('category', '=', 'purchase')]"/>
+                    <filter string="Inventory" name="inventory" domain="[('category', '=', 'inventory')]"/>
+                    <filter string="HR" name="hr" domain="[('category', '=', 'hr')]"/>
+                    <filter string="Project" name="project" domain="[('category', '=', 'project')]"/>
+                    <filter string="Website" name="website" domain="[('category', '=', 'website')]"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="Category" name="group_category" domain="[]" context="{'group_by': 'category'}"/>
+                        <filter string="License" name="group_license" domain="[]" context="{'group_by': 'license'}"/>
+                        <filter string="Version" name="group_version" domain="[]" context="{'group_by': 'version'}"/>
+                        <filter string="Status" name="group_active" domain="[]" context="{'group_by': 'active'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- Odoo Module Actions -->
+        <record id="action_odoo_module" model="ir.actions.act_window">
+            <field name="name">Odoo Modules</field>
+            <field name="res_model">saas.odoo.module</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No modules found!
+                </p>
+                <p>
+                    Create and manage Odoo modules for your SaaS plans.
+                </p>
+            </field>
+        </record>
+        
+    </data>
+</odoo>

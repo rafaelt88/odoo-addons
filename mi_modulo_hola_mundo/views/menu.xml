@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+        id="menu_mi_modulo_hola_mundo_root"
+        name="Mi Hola Mundo"
+        sequence="100" />
+
+    <menuitem
+        id="menu_mi_modulo_hola_mundo_sub"
+        name="Mensajes"
+        parent="menu_mi_modulo_hola_mundo_root"
+        sequence="10" />
+
+    <menuitem
+        id="menu_mi_modulo_hola_mundo_action"
+        name="Ver Mensaje"
+        parent="menu_mi_modulo_hola_mundo_sub"
+        action="mi_modulo_hola_mundo_action"
+        sequence="10" />
+</odoo>

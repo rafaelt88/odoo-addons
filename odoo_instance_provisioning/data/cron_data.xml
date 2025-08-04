@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Cron job to provision instances -->
+    <record id="ir_cron_provision_instances" model="ir.cron">
+        <field name="name">Provision Pending Instances</field>
+        <field name="model_id" ref="model_saas_instance_provisioning"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_provision_instances()</field>
+        <field name="interval_number">5</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="active">True</field>
+        <field name="user_id" ref="base.user_root"/>
+    </record>
+
+    <!-- Cron job to process pending requests -->
+    <record id="ir_cron_process_requests" model="ir.cron">
+        <field name="name">Process Pending Instance Requests</field>
+        <field name="model_id" ref="model_saas_instance_request"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_process_pending_requests()</field>
+        <field name="interval_number">2</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="active">True</field>
+        <field name="user_id" ref="base.user_root"/>
+    </record>
+
+    <!-- Cron job to backup instances -->
+    <record id="ir_cron_backup_instances" model="ir.cron">
+        <field name="name">Backup Active Instances</field>
+        <field name="model_id" ref="model_saas_instance_provisioning"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_backup_instances()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="active">True</field>
+        <field name="user_id" ref="base.user_root"/>
+    </record>
+
+    <!-- Cron job to monitor instances -->
+    <record id="ir_cron_monitor_instances" model="ir.cron">
+        <field name="name">Monitor Instance Health</field>
+        <field name="model_id" ref="model_saas_instance_provisioning"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_monitor_instances()</field>
+        <field name="interval_number">10</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="active">True</field>
+        <field name="user_id" ref="base.user_root"/>
+    </record>
+
+    <!-- Cron job to cleanup old logs -->
+    <record id="ir_cron_cleanup_logs" model="ir.cron">
+        <field name="name">Cleanup Old Instance Logs</field>
+        <field name="model_id" ref="model_saas_instance_provisioning_log"/>
+        <field name="state">code</field>
+        <field name="code">model.cleanup_old_logs()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active">True</field>
+        <field name="user_id" ref="base.user_root"/>
+    </record>
+
+    <!-- Cron job to cleanup old requests -->
+    <record id="ir_cron_cleanup_requests" model="ir.cron">
+        <field name="name">Cleanup Old Instance Requests</field>
+        <field name="model_id" ref="model_saas_instance_request"/>
+        <field name="state">code</field>
+        <field name="code">model.cleanup_old_requests()</field>
+        <field name="interval_number">7</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active">True</field>
+        <field name="user_id" ref="base.user_root"/>
+    </record>
+</odoo>

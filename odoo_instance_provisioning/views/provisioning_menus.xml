@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Main Menu -->
+    <menuitem id="menu_provisioning_root" 
+              name="Instance Provisioning" 
+              sequence="20"/>
+
+    <!-- Instances Menu -->
+    <menuitem id="menu_provisioning_instances" 
+              name="Instances" 
+              parent="menu_provisioning_root" 
+              action="action_saas_instance" 
+              sequence="10"/>
+
+    <!-- Requests Menu -->
+    <menuitem id="menu_provisioning_requests" 
+              name="Requests" 
+              parent="menu_provisioning_root" 
+              action="action_saas_instance_request" 
+              sequence="20"/>
+
+    <!-- Logs Menu -->
+    <menuitem id="menu_provisioning_logs" 
+              name="Logs" 
+              parent="menu_provisioning_root" 
+              action="action_saas_instance_log" 
+              sequence="30"/>
+
+    <!-- Reports Submenu -->
+    <menuitem id="menu_provisioning_reports" 
+              name="Reports" 
+              parent="menu_provisioning_root" 
+              sequence="40"/>
+
+    <!-- Instance Analytics -->
+    <record id="action_saas_instance_analytics" model="ir.actions.act_window">
+        <field name="name">Instance Analytics</field>
+        <field name="res_model">saas.instance</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="context">{
+            'search_default_active': 1,
+            'group_by': ['state', 'plan_id']
+        }</field>
+    </record>
+
+    <menuitem id="menu_provisioning_instance_analytics" 
+              name="Instance Analytics" 
+              parent="menu_provisioning_reports" 
+              action="action_saas_instance_analytics" 
+              sequence="10"/>
+
+    <!-- Request Analytics -->
+    <record id="action_saas_instance_request_analytics" model="ir.actions.act_window">
+        <field name="name">Request Analytics</field>
+        <field name="res_model">saas.instance.request</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="context">{
+            'group_by': ['state', 'submitted_date:month']
+        }</field>
+    </record>
+
+    <menuitem id="menu_provisioning_request_analytics" 
+              name="Request Analytics" 
+              parent="menu_provisioning_reports" 
+              action="action_saas_instance_request_analytics" 
+              sequence="20"/>
+
+    <!-- Configuration Submenu -->
+    <menuitem id="menu_provisioning_config" 
+              name="Configuration" 
+              parent="menu_provisioning_root" 
+              sequence="50"/>
+
+    <!-- Settings Action -->
+    <record id="action_provisioning_settings" model="ir.actions.act_window">
+        <field name="name">Provisioning Settings</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_provisioning_settings_form"/>
+        <field name="target">inline</field>
+        <field name="context">{'module': 'odoo_instance_provisioning'}</field>
+    </record>
+
+    <menuitem id="menu_provisioning_settings" 
+              name="Settings" 
+              parent="menu_provisioning_config" 
+              action="action_provisioning_settings" 
+              sequence="10"/>
+</odoo>

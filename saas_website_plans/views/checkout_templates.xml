@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Checkout Page -->
+        <template id="checkout_page" name="SaaS Plan Checkout">
+            <t t-call="website.layout">
+                <div id="wrap" class="checkout-page">
+                    <div class="container py-5">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="/saas/plans">SaaS Plans</a></li>
+                                        <li class="breadcrumb-item"><a t-attf-href="/saas/plans/#{plan.id}" t-esc="plan.name"/></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+                                    </ol>
+                                </nav>
+                                
+                                <div class="checkout-header text-center mb-5">
+                                    <h1 class="display-4 mb-3">Complete Your Order</h1>
+                                    <p class="lead">You're about to get started with <strong t-esc="plan.name"/>!</p>
+                                </div>
+                                
+                                <!-- Plan Summary -->
+                                <div class="plan-summary-card mb-4">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="mb-0">Order Summary</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row align-items-center">
+                                                <div class="col-md-8">
+                                                    <h6 class="plan-name mb-1">
+                                                        <t t-esc="plan.name"/>
+                                                        <t t-if="plan.is_featured">
+                                                            <span class="badge bg-primary ms-2">Most Popular</span>
+                                                        </t>
+                                                    </h6>
+                                                    <p class="plan-description text-muted mb-2">
+                                                        <t t-esc="plan.short_description or plan.description"/>
+                                                    </p>
+                                                    <div class="billing-period">
+                                                        <span class="text-muted">Billing: </span>
+                                                        <span class="text-capitalize" t-esc="billing_period"/> 
+                                                        (<t t-esc="period_label"/>)
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 text-md-end">
+                                                    <div class="plan-price">
+                                                        <span class="price-amount h4 text-primary">
+                                                            <t t-esc="plan.currency_id.symbol"/><t t-esc="price"/>
+                                                        </span>
+                                                        <span class="price-period text-muted">/<t t-esc="period_label"/></span>
+                                                    </div>
+                                                    <t t-if="billing_period == 'yearly' and plan.monthly_price">
+                                                        <div class="monthly-equivalent small text-muted">
+                                                            Equivalent to <t t-esc="plan.currency_id.symbol"/><t t-esc="round(price/12, 2)"/>/month
+                                                        </div>
+                                                    </t>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                                <!-- Contact Form -->
+                                <div class="checkout-form-card">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="mb-0">Registration Information</h5>
+                                            <small class="text-muted">Just a few details to get you started with your SaaS instance</small>
+                                        </div>
+                                        <div class="card-body">
+                                            <form class="saas-checkout-form" method="post" action="/saas/checkout/submit">
+                                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                <input type="hidden" name="plan_id" t-att-value="plan.id"/>
+                                                <input type="hidden" name="billing_period" t-att-value="billing_period"/>
+                                                
+                                                <!-- Essential Company Information -->
+                                                <div class="row">
+                                                    <div class="col-md-8 mb-3">
+                                                        <label for="company_name" class="form-label">Company Name *</label>
+                                                        <input type="text" class="form-control" id="company_name" name="company_name" required="required" placeholder="Your company name"/>
+                                                    </div>
+                                                    <div class="col-md-4 mb-3">
+                                                        <label for="tax_code" class="form-label">Tax Code/MST</label>
+                                                        <input type="text" class="form-control" id="tax_code" name="tax_code" placeholder="Optional"/>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- Primary Contact -->
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="contact_name" class="form-label">Your Full Name *</label>
+                                                        <input type="text" class="form-control" id="contact_name" name="contact_name" required="required" placeholder="John Doe"/>
+                                                    </div>
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="contact_position" class="form-label">Your Position</label>
+                                                        <input type="text" class="form-control" id="contact_position" name="contact_position" placeholder="CEO, Manager, etc."/>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- Contact Details -->
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="contact_email" class="form-label">Your Email *</label>
+                                                        <input type="email" class="form-control" id="contact_email" name="contact_email" required="required" placeholder="john@company.com"/>
+                                                    </div>
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="contact_phone" class="form-label">Your Phone</label>
+                                                        <input type="tel" class="form-control" id="contact_phone" name="contact_phone" placeholder="+84 123 456 789"/>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- Optional Instance Preferences -->
+                                                <div class="accordion mb-4" id="advancedOptions">
+                                                    <div class="accordion-item">
+                                                        <h2 class="accordion-header" id="headingAdvanced">
+                                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAdvanced" aria-expanded="false" aria-controls="collapseAdvanced">
+                                                                <i class="fa fa-cogs me-2"></i>
+                                                                Advanced Options (Optional)
+                                                            </button>
+                                                        </h2>
+                                                        <div id="collapseAdvanced" class="accordion-collapse collapse" aria-labelledby="headingAdvanced" data-bs-parent="#advancedOptions">
+                                                            <div class="accordion-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-6 mb-3">
+                                                                        <label for="preferred_subdomain" class="form-label">Preferred Subdomain</label>
+                                                                        <div class="input-group">
+                                                                            <input type="text" class="form-control" id="preferred_subdomain" name="preferred_subdomain" placeholder="mycompany"/>
+                                                                            <span class="input-group-text">.saas.com</span>
+                                                                        </div>
+                                                                        <small class="form-text text-muted">Will auto-generate from company name if empty</small>
+                                                                    </div>                                                                    <div class="col-md-6 mb-3">
+                                                                        <label for="company_email" class="form-label">Company Email</label>
+                                                                        <input type="email" class="form-control" id="company_email" name="company_email" placeholder="info@company.com"/>
+                                                                        <small class="form-text text-muted">For general company communications</small>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                                <div class="row">
+                                                                    <div class="col-md-12 mb-3">
+                                                                        <label for="requirements" class="form-label">Additional Requirements</label>
+                                                                        <textarea class="form-control" id="requirements" name="requirements" rows="2" placeholder="Any specific requirements or questions..."></textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- Terms and Submit -->
+                                                <div class="form-check mb-4">
+                                                    <input class="form-check-input" type="checkbox" id="terms_agreed" name="terms_agreed" required="required"/>
+                                                    <label class="form-check-label" for="terms_agreed">
+                                                        I agree to the <a href="/terms" target="_blank">Terms of Service</a> and <a href="/privacy" target="_blank">Privacy Policy</a> *
+                                                    </label>
+                                                </div>
+                                                
+                                                <div class="mb-3">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" id="newsletter" name="newsletter" value="1"/>
+                                                        <label class="form-check-label" for="newsletter">
+                                                            Subscribe to our newsletter for updates and special offers
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="d-grid gap-2">
+                                                    <button type="submit" class="btn btn-primary btn-lg">
+                                                        <i class="fa fa-rocket me-2"></i>
+                                                        Submit SaaS Request
+                                                    </button>
+                                                    <a t-attf-href="/saas/plans/#{plan.id}" class="btn btn-outline-secondary">
+                                                        <i class="fa fa-arrow-left me-2"></i>
+                                                        Back to Plan Details
+                                                    </a>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Trust Indicators -->
+                                <div class="trust-indicators text-center mt-5">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="trust-item">
+                                                <i class="fa fa-shield-alt fa-2x text-success mb-3"></i>
+                                                <h6>Secure &amp; Reliable</h6>
+                                                <p class="text-muted small">Your data is protected with enterprise-grade security</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="trust-item">
+                                                <i class="fa fa-clock fa-2x text-info mb-3"></i>
+                                                <h6>Quick Setup</h6>
+                                                <p class="text-muted small">Get started in minutes, not hours</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="trust-item">
+                                                <i class="fa fa-headset fa-2x text-warning mb-3"></i>
+                                                <h6>24/7 Support</h6>
+                                                <p class="text-muted small">Expert support whenever you need it</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+        
+        <!-- Checkout Success Page -->
+        <template id="checkout_success" name="Checkout Success">
+            <t t-call="website.layout">
+                <div id="wrap" class="checkout-success-page">
+                    <div class="container py-5">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8 text-center">                                <div class="success-icon mb-4">
+                                    <i class="fa fa-check-circle fa-5x text-success"></i>
+                                </div>
+                                <h1 class="display-4 mb-3">Thank You!</h1>
+                                <p class="lead mb-4">
+                                    Your SaaS request for <strong><t t-esc="plan_name"/></strong> has been submitted successfully.
+                                    Our team will contact you within 24 hours to set up your account and get you started.
+                                </p>                                <div class="confirmation-details mb-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Confirmation Details</h5>
+                                            <div class="row text-start">
+                                                <div class="col-md-6">
+                                                    <p><strong>Company:</strong> <t t-esc="customer.company_name"/></p>
+                                                    <p><strong>Contact Person:</strong> <t t-esc="customer.contact_name"/></p>
+                                                    <p><strong>Email:</strong> <t t-esc="customer.contact_email"/></p>
+                                                    <t t-if="customer.contact_phone">
+                                                        <p><strong>Phone:</strong> <t t-esc="customer.contact_phone"/></p>
+                                                    </t>
+                                                    <p><strong>Customer ID:</strong> #<t t-esc="customer.id"/></p>
+                                                    <p><strong>Lead ID:</strong> #<t t-esc="lead.id"/></p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><strong>Plan:</strong> <t t-esc="plan.name"/></p>
+                                                    <p><strong>Billing Period:</strong> <t t-esc="billing_period.title() if billing_period else 'Monthly'"/></p>
+                                                    <p><strong>Instance Name:</strong> <t t-esc="instance.instance_name"/></p>
+                                                    <p><strong>Subdomain:</strong> <t t-esc="instance.subdomain"/></p>
+                                                    <p><strong>Instance URL:</strong> <a t-att-href="instance_url" target="_blank"><t t-esc="instance_url"/></a></p>
+                                                    <p><strong>Instance ID:</strong> #<t t-esc="instance.id"/></p>
+                                                </div>
+                                            </div>
+                                            <div class="row text-start mt-3">
+                                                <div class="col-12">
+                                                    <div class="alert alert-success" role="alert">
+                                                        <i class="fa fa-check-circle me-2"></i>
+                                                        <strong>Your SaaS instance has been created!</strong><br/>
+                                                        Status: <span class="badge bg-success"><t t-esc="instance.status.title()"/></span> | 
+                                                        Version: <t t-esc="instance.odoo_version"/> |
+                                                        Location: <t t-esc="instance.server_location"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                  <div class="next-steps-card mb-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">What Happens Next?</h5>
+                                            <div class="steps-list text-start">
+                                                <div class="step-item d-flex align-items-center mb-3">
+                                                    <div class="step-number bg-primary text-white rounded-circle me-3" style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">1</div>
+                                                    <span>You'll receive a confirmation email with your request details</span>
+                                                </div>
+                                                <div class="step-item d-flex align-items-center mb-3">
+                                                    <div class="step-number bg-info text-white rounded-circle me-3" style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">2</div>
+                                                    <span>Our sales team will contact you within 24 hours to discuss requirements</span>
+                                                </div>
+                                                <div class="step-item d-flex align-items-center mb-3">
+                                                    <div class="step-number bg-warning text-white rounded-circle me-3" style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">3</div>
+                                                    <span>We'll create your dedicated SaaS instance with your specifications</span>
+                                                </div>
+                                                <div class="step-item d-flex align-items-center mb-3">
+                                                    <div class="step-number bg-success text-white rounded-circle me-3" style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">4</div>
+                                                    <span>You'll receive login credentials and training to get started</span>
+                                                </div>
+                                                <div class="step-item d-flex align-items-center">
+                                                    <div class="step-number bg-dark text-white rounded-circle me-3" style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">5</div>
+                                                    <span>Your SaaS environment will be live and ready for your business!</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="action-buttons">
+                                    <a href="/saas/plans" class="btn btn-outline-primary btn-lg me-3">
+                                        <i class="fa fa-list me-2"></i>
+                                        View All Plans
+                                    </a>
+                                    <a href="/" class="btn btn-primary btn-lg">
+                                        <i class="fa fa-home me-2"></i>
+                                        Back to Home
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+        
+        <!-- Checkout Error Page -->
+        <template id="checkout_error" name="Checkout Error">
+            <t t-call="website.layout">
+                <div id="wrap" class="checkout-error-page">
+                    <div class="container py-5">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-6 text-center">
+                                <div class="error-icon mb-4">
+                                    <i class="fa fa-exclamation-triangle fa-5x text-danger"></i>
+                                </div>
+                                <h1 class="display-4 mb-3">Oops! Something went wrong</h1>
+                                <p class="lead mb-4">
+                                    <t t-if="error_message">
+                                        <t t-esc="error_message"/>
+                                    </t>
+                                    <t t-else="">
+                                        We encountered an error while processing your request. Please try again.
+                                    </t>
+                                </p>
+                                
+                                <div class="action-buttons">
+                                    <a href="javascript:history.back()" class="btn btn-primary btn-lg me-3">
+                                        <i class="fa fa-arrow-left me-2"></i>
+                                        Go Back
+                                    </a>
+                                    <a href="/saas/plans" class="btn btn-outline-primary btn-lg me-3">
+                                        <i class="fa fa-list me-2"></i>
+                                        View Plans
+                                    </a>
+                                    <a href="/contactus" class="btn btn-outline-secondary btn-lg">
+                                        <i class="fa fa-envelope me-2"></i>
+                                        Contact Support
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

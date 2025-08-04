@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Main SaaS Plan Management Menu -->
+        <menuitem id="menu_saas_plan_management" 
+                  name="SaaS Plans" 
+                  parent="saas_customer_management.menu_saas_management"
+                  sequence="20"/>
+        
+        <!-- Direct menu items -->
+        <menuitem id="menu_saas_plans" 
+                  name="SaaS Plans" 
+                  parent="menu_saas_plan_management" 
+                  action="action_saas_plan" 
+                  sequence="10"/>
+        
+        <menuitem id="menu_plan_templates" 
+                  name="Plan Templates" 
+                  parent="menu_saas_plan_management" 
+                  action="action_plan_template" 
+                  sequence="20"/>
+        
+        <menuitem id="menu_plan_addons" 
+                  name="Plan Add-ons" 
+                  parent="menu_saas_plan_management" 
+                  action="action_plan_addon" 
+                  sequence="30"/>
+        
+        <menuitem id="menu_odoo_modules" 
+                  name="Odoo Modules" 
+                  parent="menu_saas_plan_management" 
+                  action="action_odoo_module" 
+                  sequence="40"/>
+        
+    </data>
+</odoo>

@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_recommendation_user,product.recommendation.user,model_product_recommendation,base.group_user,1,0,0,0
+access_product_recommendation_sales_user,product.recommendation.sales_user,model_product_recommendation,sales_team.group_sale_salesman,1,1,1,0
+access_product_recommendation_sales_manager,product.recommendation.sales_manager,model_product_recommendation,sales_team.group_sale_manager,1,1,1,1
+access_product_recommendation_public,product.recommendation.public,model_product_recommendation,base.group_public,1,0,0,0
+access_product_recommendation_portal,product.recommendation.portal,model_product_recommendation,base.group_portal,1,0,0,0

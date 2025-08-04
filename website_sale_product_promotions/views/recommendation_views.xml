@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Product Recommendation Tree View -->
+    <record id="view_product_recommendation_tree" model="ir.ui.view">
+        <field name="name">product.recommendation.tree</field>
+        <field name="model">product.recommendation</field>
+        <field name="arch" type="xml">
+            <tree decoration-muted="not active" decoration-info="created_by_system">
+                <field name="source_product_id"/>
+                <field name="recommended_product_id"/>
+                <field name="type"/>
+                <field name="score"/>
+                <field name="price_difference"/>
+                <field name="price_difference_percent"/>
+                <field name="active"/>
+                <field name="created_by_system"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Product Recommendation Form View -->
+    <record id="view_product_recommendation_form" model="ir.ui.view">
+        <field name="name">product.recommendation.form</field>
+        <field name="model">product.recommendation</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="active" widget="boolean_toggle"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="source_product_id"/>
+                            <field name="recommended_product_id"/>
+                            <field name="type"/>
+                        </group>
+                        <group>
+                            <field name="score"/>
+                            <field name="price_difference"/>
+                            <field name="price_difference_percent"/>
+                            <field name="created_by_system"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Product Recommendation Search View -->
+    <record id="view_product_recommendation_search" model="ir.ui.view">
+        <field name="name">product.recommendation.search</field>
+        <field name="model">product.recommendation</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="source_product_id"/>
+                <field name="recommended_product_id"/>
+                <field name="type"/>
+                
+                <filter name="active" string="Active" domain="[('active', '=', True)]"/>
+                <filter name="upsell" string="Upsell" domain="[('type', '=', 'upsell')]"/>
+                <filter name="crosssell" string="Cross-sell" domain="[('type', '=', 'crosssell')]"/>
+                <filter name="system_generated" string="System Generated" domain="[('created_by_system', '=', True)]"/>
+                <filter name="manual" string="Manual" domain="[('created_by_system', '=', False)]"/>
+                
+                <group expand="0" string="Group By">
+                    <filter name="group_source_product" string="Source Product" context="{'group_by': 'source_product_id'}"/>
+                    <filter name="group_type" string="Type" context="{'group_by': 'type'}"/>
+                    <filter name="group_created_by_system" string="Created By" context="{'group_by': 'created_by_system'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Product Recommendation Action -->
+    <record id="action_product_recommendation" model="ir.actions.act_window">
+        <field name="name">Product Recommendations</field>
+        <field name="res_model">product.recommendation</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_product_recommendation_search"/>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create product recommendations!
+            </p>
+            <p>
+                Product recommendations help suggest upsell and cross-sell products to customers.
+                You can create them manually or use the automatic generation feature.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu Items -->
+    <menuitem id="menu_product_recommendations" 
+              name="Product Recommendations" 
+              parent="sale.menu_sale_config" 
+              action="action_product_recommendation" 
+              sequence="50"/>
+
+</odoo>

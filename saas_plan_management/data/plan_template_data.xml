@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- Basic Business Template -->
+        <record id="template_basic_business" model="saas.plan.template">
+            <field name="name">Basic Business</field>
+            <field name="code">BASIC_BIZ</field>
+            <field name="description">Template for basic business needs including CRM, Sales, and Invoicing</field>
+            <field name="category">business</field>
+            <field name="plan_type">basic</field>
+            <field name="default_monthly_price">29.0</field>
+            <field name="default_yearly_price">290.0</field>
+            <field name="default_max_users">5</field>
+            <field name="default_storage_gb">5.0</field>
+            <field name="default_api_calls">10000</field>
+            <field name="default_module_ids" eval="[(6, 0, [ref('module_base'), ref('module_web'), ref('module_mail'), ref('module_crm'), ref('module_sale'), ref('module_account'), ref('module_contacts')])]"/>
+            <field name="sequence">10</field>
+        </record>
+        
+        <!-- Standard Business Template -->
+        <record id="template_standard_business" model="saas.plan.template">
+            <field name="name">Standard Business</field>
+            <field name="code">STD_BIZ</field>
+            <field name="description">Template for growing businesses with inventory and purchase management</field>
+            <field name="category">business</field>
+            <field name="plan_type">standard</field>
+            <field name="default_monthly_price">59.0</field>
+            <field name="default_yearly_price">590.0</field>
+            <field name="default_max_users">15</field>
+            <field name="default_storage_gb">20.0</field>
+            <field name="default_api_calls">50000</field>
+            <field name="default_module_ids" eval="[(6, 0, [ref('module_base'), ref('module_web'), ref('module_mail'), ref('module_crm'), ref('module_sale'), ref('module_account'), ref('module_purchase'), ref('module_stock'), ref('module_contacts'), ref('module_calendar')])]"/>
+            <field name="sequence">20</field>
+        </record>
+        
+        <!-- Premium Business Template -->
+        <record id="template_premium_business" model="saas.plan.template">
+            <field name="name">Premium Business</field>
+            <field name="code">PREM_BIZ</field>
+            <field name="description">Complete business solution with HR, Project Management, and Manufacturing</field>
+            <field name="category">business</field>
+            <field name="plan_type">premium</field>
+            <field name="default_monthly_price">99.0</field>
+            <field name="default_yearly_price">990.0</field>
+            <field name="default_max_users">50</field>
+            <field name="default_storage_gb">100.0</field>
+            <field name="default_api_calls">200000</field>
+            <field name="default_module_ids" eval="[(6, 0, [ref('module_base'), ref('module_web'), ref('module_mail'), ref('module_crm'), ref('module_sale'), ref('module_account'), ref('module_purchase'), ref('module_stock'), ref('module_hr'), ref('module_project'), ref('module_mrp'), ref('module_contacts'), ref('module_calendar')])]"/>
+            <field name="sequence">30</field>
+        </record>
+        
+        <!-- E-commerce Template -->
+        <record id="template_ecommerce" model="saas.plan.template">
+            <field name="name">E-commerce Starter</field>
+            <field name="code">ECOM_START</field>
+            <field name="description">Template for online stores and e-commerce businesses</field>
+            <field name="category">technical</field>
+            <field name="plan_type">standard</field>
+            <field name="default_monthly_price">79.0</field>
+            <field name="default_yearly_price">790.0</field>
+            <field name="default_max_users">10</field>
+            <field name="default_storage_gb">50.0</field>
+            <field name="default_api_calls">100000</field>
+            <field name="default_module_ids" eval="[(6, 0, [ref('module_base'), ref('module_web'), ref('module_mail'), ref('module_website'), ref('module_website_sale'), ref('module_sale'), ref('module_account'), ref('module_stock'), ref('module_contacts')])]"/>
+            <field name="sequence">40</field>
+        </record>
+        
+        <!-- Project Management Template -->
+        <record id="template_project_mgmt" model="saas.plan.template">
+            <field name="name">Project Management</field>
+            <field name="code">PROJ_MGMT</field>
+            <field name="description">Template focused on project management and team collaboration</field>
+            <field name="category">technical</field>
+            <field name="plan_type">standard</field>
+            <field name="default_monthly_price">49.0</field>
+            <field name="default_yearly_price">490.0</field>
+            <field name="default_max_users">25</field>
+            <field name="default_storage_gb">25.0</field>
+            <field name="default_api_calls">75000</field>
+            <field name="default_module_ids" eval="[(6, 0, [ref('module_base'), ref('module_web'), ref('module_mail'), ref('module_project'), ref('module_hr_timesheet'), ref('module_hr'), ref('module_calendar'), ref('module_contacts')])]"/>
+            <field name="sequence">50</field>
+        </record>
+        
+        <!-- Free Trial Template -->
+        <record id="template_free_trial" model="saas.plan.template">
+            <field name="name">Free Trial</field>
+            <field name="code">FREE_TRIAL</field>
+            <field name="description">Free trial template with basic modules</field>
+            <field name="category">mixed</field>
+            <field name="plan_type">free</field>
+            <field name="default_monthly_price">0.0</field>
+            <field name="default_yearly_price">0.0</field>
+            <field name="default_max_users">2</field>
+            <field name="default_storage_gb">1.0</field>
+            <field name="default_api_calls">1000</field>
+            <field name="default_module_ids" eval="[(6, 0, [ref('module_base'), ref('module_web'), ref('module_mail'), ref('module_crm'), ref('module_contacts')])]"/>
+            <field name="sequence">5</field>
+        </record>
+        
+    </data>
+</odoo>

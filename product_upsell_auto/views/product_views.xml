@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Product Template Form View -->
+    <record id="view_product_template_form_upsell" model="ir.ui.view">
+        <field name="name">product.template.form.upsell</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='sales']" position="after">
+                <page string="Auto Recommendations" name="auto_recommendations">
+                    <group>
+                        <group>
+                            <field name="upsell_recommendation_count"/>
+                            <field name="crosssell_recommendation_count"/>
+                        </group>
+                        <group>
+                            <button name="action_generate_upsell" 
+                                    string="Generate Upsell" 
+                                    type="object" 
+                                    class="btn-primary"
+                                    help="Generate automatic upsell recommendations for this product"/>
+                            <button name="action_view_recommendations" 
+                                    string="View All Recommendations" 
+                                    type="object" 
+                                    class="btn-secondary"/>
+                        </group>
+                    </group>
+                    
+                    <notebook>
+                        <page string="Upsell Recommendations" name="upsell_recommendations">
+                            <field name="auto_upsell_recommendation_ids" nolabel="1">
+                                <tree decoration-muted="not active" editable="bottom">
+                                    <field name="recommended_product_id"/>
+                                    <field name="score"/>
+                                    <field name="price_difference"/>
+                                    <field name="price_difference_percent" string="Price Diff %"/>
+                                    <field name="active"/>
+                                    <field name="created_by_system"/>
+                                </tree>
+                            </field>
+                        </page>
+                        
+                        <page string="Cross-sell Recommendations" name="crosssell_recommendations">
+                            <field name="auto_crosssell_recommendation_ids" nolabel="1">
+                                <tree decoration-muted="not active" editable="bottom">
+                                    <field name="recommended_product_id"/>
+                                    <field name="score"/>
+                                    <field name="price_difference"/>
+                                    <field name="price_difference_percent" string="Price Diff %"/>
+                                    <field name="active"/>
+                                    <field name="created_by_system"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Product Template Action for Bulk Upsell Generation -->
+    <record id="action_generate_all_upsell" model="ir.actions.server">
+        <field name="name">Generate All Upsell Recommendations</field>
+        <field name="model_id" ref="product.model_product_template"/>
+        <field name="binding_model_id" ref="product.model_product_template"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.action_generate_all_upsell()
+        </field>
+    </record>
+
+</odoo>

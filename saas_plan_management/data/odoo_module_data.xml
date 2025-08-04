@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- Core Modules -->
+        <record id="module_base" model="saas.odoo.module">
+            <field name="name">Base</field>
+            <field name="technical_name">base</field>
+            <field name="category">administration</field>
+            <field name="description">Core Odoo functionality</field>
+            <field name="is_core_module">True</field>
+            <field name="is_required">True</field>
+            <field name="sequence">1</field>
+        </record>
+        
+        <record id="module_web" model="saas.odoo.module">
+            <field name="name">Web</field>
+            <field name="technical_name">web</field>
+            <field name="category">administration</field>
+            <field name="description">Web interface</field>
+            <field name="is_core_module">True</field>
+            <field name="is_required">True</field>
+            <field name="sequence">2</field>
+        </record>
+        
+        <record id="module_mail" model="saas.odoo.module">
+            <field name="name">Mail</field>
+            <field name="technical_name">mail</field>
+            <field name="category">productivity</field>
+            <field name="description">Messaging and email functionality</field>
+            <field name="is_core_module">True</field>
+            <field name="is_popular">True</field>
+            <field name="sequence">3</field>
+        </record>
+        
+        <!-- Popular Business Modules -->
+        <record id="module_crm" model="saas.odoo.module">
+            <field name="name">CRM</field>
+            <field name="technical_name">crm</field>
+            <field name="category">sales</field>
+            <field name="description">Customer Relationship Management</field>
+            <field name="is_popular">True</field>
+            <field name="sequence">10</field>
+        </record>
+        
+        <record id="module_sale" model="saas.odoo.module">
+            <field name="name">Sales Management</field>
+            <field name="technical_name">sale_management</field>
+            <field name="category">sales</field>
+            <field name="description">Sales orders and quotations</field>
+            <field name="is_popular">True</field>
+            <field name="sequence">11</field>
+        </record>
+        
+        <record id="module_account" model="saas.odoo.module">
+            <field name="name">Invoicing</field>
+            <field name="technical_name">account</field>
+            <field name="category">accounting</field>
+            <field name="description">Accounting and invoicing</field>
+            <field name="is_popular">True</field>
+            <field name="sequence">12</field>
+        </record>
+        
+        <record id="module_purchase" model="saas.odoo.module">
+            <field name="name">Purchase Management</field>
+            <field name="technical_name">purchase</field>
+            <field name="category">purchase</field>
+            <field name="description">Purchase orders and vendor management</field>
+            <field name="is_popular">True</field>
+            <field name="sequence">13</field>
+        </record>
+        
+        <record id="module_stock" model="saas.odoo.module">
+            <field name="name">Inventory Management</field>
+            <field name="technical_name">stock</field>
+            <field name="category">inventory</field>
+            <field name="description">Inventory and warehouse management</field>
+            <field name="is_popular">True</field>
+            <field name="sequence">14</field>
+        </record>
+        
+        <record id="module_hr" model="saas.odoo.module">
+            <field name="name">Employees</field>
+            <field name="technical_name">hr</field>
+            <field name="category">hr</field>
+            <field name="description">Human Resources management</field>
+            <field name="is_popular">True</field>
+            <field name="sequence">15</field>
+        </record>
+        
+        <record id="module_project" model="saas.odoo.module">
+            <field name="name">Project Management</field>
+            <field name="technical_name">project</field>
+            <field name="category">project</field>
+            <field name="description">Project management and tasks</field>
+            <field name="is_popular">True</field>
+            <field name="sequence">16</field>
+        </record>
+        
+        <record id="module_website" model="saas.odoo.module">
+            <field name="name">Website Builder</field>
+            <field name="technical_name">website</field>
+            <field name="category">website</field>
+            <field name="description">Website builder and CMS</field>
+            <field name="is_popular">True</field>
+            <field name="sequence">17</field>
+        </record>
+        
+        <record id="module_calendar" model="saas.odoo.module">
+            <field name="name">Calendar</field>
+            <field name="technical_name">calendar</field>
+            <field name="category">productivity</field>
+            <field name="description">Calendar and meetings</field>
+            <field name="is_popular">True</field>
+            <field name="sequence">18</field>
+        </record>
+        
+        <record id="module_contacts" model="saas.odoo.module">
+            <field name="name">Contacts</field>
+            <field name="technical_name">contacts</field>
+            <field name="category">productivity</field>
+            <field name="description">Contact management</field>
+            <field name="is_popular">True</field>
+            <field name="sequence">19</field>
+        </record>
+        
+        <!-- Additional Modules -->
+        <record id="module_mrp" model="saas.odoo.module">
+            <field name="name">Manufacturing</field>
+            <field name="technical_name">mrp</field>
+            <field name="category">inventory</field>
+            <field name="description">Manufacturing and Bill of Materials</field>
+            <field name="sequence">20</field>
+        </record>
+        
+        <record id="module_website_sale" model="saas.odoo.module">
+            <field name="name">E-commerce</field>
+            <field name="technical_name">website_sale</field>
+            <field name="category">website</field>
+            <field name="description">Online store and e-commerce</field>
+            <field name="sequence">21</field>
+        </record>
+        
+        <record id="module_mass_mailing" model="saas.odoo.module">
+            <field name="name">Email Marketing</field>
+            <field name="technical_name">mass_mailing</field>
+            <field name="category">marketing</field>
+            <field name="description">Email marketing campaigns</field>
+            <field name="sequence">22</field>
+        </record>
+        
+        <record id="module_hr_holidays" model="saas.odoo.module">
+            <field name="name">Time Off</field>
+            <field name="technical_name">hr_holidays</field>
+            <field name="category">hr</field>
+            <field name="description">Leave management</field>
+            <field name="sequence">23</field>
+        </record>
+        
+        <record id="module_hr_timesheet" model="saas.odoo.module">
+            <field name="name">Timesheets</field>
+            <field name="technical_name">hr_timesheet</field>
+            <field name="category">project</field>
+            <field name="description">Time tracking and timesheets</field>
+            <field name="sequence">24</field>
+        </record>
+        
+    </data>
+</odoo>

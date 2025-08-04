@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_saas_plan_user,saas.plan.user,model_saas_plan,group_saas_plan_user,1,0,0,0
+access_saas_plan_manager,saas.plan.manager,model_saas_plan,group_saas_plan_manager,1,1,1,1
+access_saas_odoo_module_user,saas.odoo.module.user,model_saas_odoo_module,group_saas_plan_user,1,0,0,0
+access_saas_odoo_module_manager,saas.odoo.module.manager,model_saas_odoo_module,group_saas_plan_manager,1,1,1,1
+access_saas_plan_addon_user,saas.plan.addon.user,model_saas_plan_addon,group_saas_plan_user,1,0,0,0
+access_saas_plan_addon_manager,saas.plan.addon.manager,model_saas_plan_addon,group_saas_plan_manager,1,1,1,1
+access_saas_plan_template_user,saas.plan.template.user,model_saas_plan_template,group_saas_plan_user,1,0,0,0
+access_saas_plan_template_manager,saas.plan.template.manager,model_saas_plan_template,group_saas_plan_manager,1,1,1,1

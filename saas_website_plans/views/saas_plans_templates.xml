@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Main SaaS Plans Page -->
+        <template id="plans_page" name="SaaS Plans">
+            <t t-call="website.layout">
+                <div id="wrap" class="saas-plans-page">
+                    <!-- Hero Section -->
+                    <section class="saas-hero bg-primary text-white py-5">
+                        <div class="container">
+                            <div class="row justify-content-center text-center">
+                                <div class="col-lg-8">
+                                    <h1 class="display-4 mb-4">Choose Your Perfect SaaS Plan</h1>
+                                    <p class="lead mb-4">
+                                        Flexible pricing designed to grow with your business. 
+                                        Start with what you need today, upgrade as you scale.
+                                    </p>
+                                    <div class="row text-center mt-4">
+                                        <div class="col-md-4 mb-3">
+                                            <i class="fa fa-rocket fa-2x mb-2"></i>
+                                            <div><small>Quick Setup</small></div>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <i class="fa fa-shield-alt fa-2x mb-2"></i>
+                                            <div><small>Enterprise Security</small></div>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <i class="fa fa-headset fa-2x mb-2"></i>
+                                            <div><small>24/7 Support</small></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Plans Section -->
+                    <section class="py-5">
+                        <div class="container">
+                            <div class="row mb-5">
+                                <div class="col-lg-8 mx-auto text-center">
+                                    <h2 class="h1 mb-3">Our SaaS Plans</h2>
+                                    <p class="text-muted">Choose the plan that fits your business needs and budget</p>
+                                </div>
+                            </div>
+
+                            <!-- Plans Grid -->
+                            <div class="row g-4 justify-content-center">
+                                <t t-foreach="plans" t-as="plan">
+                                    <div class="col-lg-4 col-md-6">
+                                        <div class="card plan-card h-100">
+                                            <t t-set="badge" t-value="plan.get_plan_badge()"/>
+                                            <t t-if="badge">
+                                                <div class="plan-badge">
+                                                    <span t-att-class="'badge ' + badge['class']" t-esc="badge['text']"/>
+                                                </div>
+                                            </t>
+                                            
+                                            <div class="card-body text-center p-4">
+                                                <h3 class="plan-name mb-3" t-esc="plan.name"/>
+                                                <p class="plan-description text-muted mb-4" t-esc="plan.short_description or plan.description"/>
+                                                
+                                                <!-- Pricing Display -->
+                                                <div class="pricing-section mb-4">
+                                                    <div class="price-display">
+                                                        <span class="price-amount h2 text-primary" t-esc="plan.currency_id.symbol"/><span class="price-amount h2 text-primary" t-esc="plan.monthly_price"/>
+                                                        <span class="price-period text-muted">/month</span>
+                                                    </div>
+                                                    <t t-if="plan.yearly_price">
+                                                        <div class="yearly-price text-muted small">
+                                                            or <span t-esc="plan.currency_id.symbol"/><span t-esc="plan.yearly_price"/> /year
+                                                            <t t-if="plan.monthly_price * 12 > plan.yearly_price">
+                                                                <span class="text-success">
+                                                                    (Save <t t-esc="int(((plan.monthly_price * 12 - plan.yearly_price) / (plan.monthly_price * 12)) * 100)"/>%)
+                                                                </span>
+                                                            </t>
+                                                        </div>
+                                                    </t>
+                                                </div>
+                                                
+                                                <!-- Features List -->
+                                                <div class="features-list text-start mb-4" style="height: 350px;">
+                                                    <t t-set="features" t-value="plan.get_website_features()"/>
+                                                    <ul class="list-unstyled">
+                                                        <t t-foreach="features[:8]" t-as="feature">
+                                                            <li class="mb-2">
+                                                                <i class="fa fa-check text-success me-2"></i>
+                                                                <span t-esc="feature"/>
+                                                            </li>
+                                                        </t>
+                                                    </ul>
+                                                    <t t-if="len(features) > 8">
+                                                        <p class="text-muted small">+ <t t-esc="len(features) - 8"/> more features</p>
+                                                    </t>
+                                                </div>
+                                                
+                                                <!-- Action Buttons -->
+                                                <div class="plan-actions">
+                                                    <a t-attf-href="/saas/checkout/#{plan.id}" class="btn btn-primary btn-lg w-100 mb-2">
+                                                        <t t-esc="plan.website_button_text or 'Get Started'"/>
+                                                    </a>
+                                                    <a t-attf-href="/saas/plans/#{plan.id}" class="btn btn-outline-secondary w-100">
+                                                        View Details
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Features Comparison Section -->
+                    <section class="bg-light py-5">
+                        <div class="container">
+                            <div class="row mb-5">
+                                <div class="col-lg-8 mx-auto text-center">
+                                    <h2 class="h1 mb-3">Compare Plans</h2>
+                                    <p class="text-muted">Detailed comparison of features across all plans</p>
+                                </div>
+                            </div>
+                            
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <thead class="table-primary">
+                                        <tr>
+                                            <th>Features</th>
+                                            <t t-foreach="plans" t-as="plan">
+                                                <th class="text-center">
+                                                    <div><strong t-esc="plan.name"/></div>
+                                                    <div class="small text-muted" t-esc="plan.display_price"/>
+                                                </th>
+                                            </t>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Users</strong></td>
+                                            <t t-foreach="plans" t-as="plan">
+                                                <td class="text-center">
+                                                    <t t-if="plan.unlimited_users">
+                                                        <i class="fa fa-infinity text-success"></i> Unlimited
+                                                    </t>
+                                                    <t t-else="">
+                                                        <t t-esc="plan.max_users"/> users
+                                                    </t>
+                                                </td>
+                                            </t>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Storage</strong></td>
+                                            <t t-foreach="plans" t-as="plan">
+                                                <td class="text-center">
+                                                    <t t-if="plan.unlimited_storage">
+                                                        <i class="fa fa-infinity text-success"></i> Unlimited
+                                                    </t>
+                                                    <t t-else="">
+                                                        <t t-esc="plan.storage_limit_gb"/>GB
+                                                    </t>
+                                                </td>
+                                            </t>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>API Access</strong></td>
+                                            <t t-foreach="plans" t-as="plan">
+                                                <td class="text-center">
+                                                    <t t-if="plan.api_access_enabled">
+                                                        <i class="fa fa-check text-success"></i>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <i class="fa fa-times text-danger"></i>
+                                                    </t>
+                                                </td>
+                                            </t>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Priority Support</strong></td>
+                                            <t t-foreach="plans" t-as="plan">
+                                                <td class="text-center">
+                                                    <t t-if="plan.priority_support">
+                                                        <i class="fa fa-check text-success"></i>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <i class="fa fa-times text-danger"></i>
+                                                    </t>
+                                                </td>
+                                            </t>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Custom Domain</strong></td>
+                                            <t t-foreach="plans" t-as="plan">
+                                                <td class="text-center">
+                                                    <t t-if="plan.custom_domain_support">
+                                                        <i class="fa fa-check text-success"></i>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <i class="fa fa-times text-danger"></i>
+                                                    </t>
+                                                </td>
+                                            </t>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Backup Frequency</strong></td>
+                                            <t t-foreach="plans" t-as="plan">
+                                                <td class="text-center" t-esc="plan.backup_frequency.title()"/>
+                                            </t>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- CTA Section -->
+                    <section class="py-5">
+                        <div class="container">
+                            <div class="row justify-content-center text-center">
+                                <div class="col-lg-8">
+                                    <h2 class="mb-3">Ready to Get Started?</h2>
+                                    <p class="lead mb-4">
+                                        Join thousands of businesses already using our SaaS platform to streamline their operations.
+                                    </p>
+                                    <div class="d-flex justify-content-center gap-3">
+                                        <a href="#plans" class="btn btn-primary btn-lg">
+                                            Choose Your Plan
+                                        </a>
+                                        <a href="/contactus" class="btn btn-outline-primary btn-lg">
+                                            Contact Sales
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </t>
+        </template>
+
+        <!-- Plan Detail Page -->
+        <template id="plan_detail_page" name="Plan Detail">
+            <t t-call="website.layout">
+                <div id="wrap" class="plan-detail-page">
+                    <div class="container py-5">
+                        <div class="row">
+                            <div class="col-lg-8 mx-auto">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="/saas/plans">SaaS Plans</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page" t-esc="plan.name"/>
+                                    </ol>
+                                </nav>
+                                
+                                <div class="plan-detail-header text-center mb-5">
+                                    <h1 class="display-4 mb-3" t-esc="plan.name"/>
+                                    <p class="lead text-muted" t-esc="plan.description"/>
+                                    
+                                    <div class="pricing-options mt-4">
+                                        <t t-set="pricing_options" t-value="plan.get_pricing_options()"/>
+                                        <t t-foreach="pricing_options" t-as="option">
+                                            <div class="pricing-option d-inline-block m-2">
+                                                <div class="card">
+                                                    <div class="card-body text-center p-3">
+                                                        <h5 t-esc="option['period_display']"/>
+                                                        <div class="price">
+                                                            <span class="h3 text-primary" t-esc="option['price_display']"/>
+                                                            <span class="text-muted" t-esc="option['period_label']"/>
+                                                        </div>
+                                                        <t t-if="option.get('savings_percent', 0) > 0">
+                                                            <div class="text-success small">
+                                                                Save <t t-esc="option['savings_percent']"/>%
+                                                            </div>
+                                                        </t>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </div>
+                                
+                                <div class="plan-features mb-5">
+                                    <h3 class="mb-4">What's Included</h3>
+                                    <t t-set="features" t-value="plan.get_website_features()"/>
+                                    <div class="row">
+                                        <t t-foreach="features" t-as="feature">
+                                            <div class="col-md-6 mb-2">
+                                                <i class="fa fa-check text-success me-2"></i>
+                                                <span t-esc="feature"/>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </div>
+                                
+                                <div class="text-center mb-5">
+                                    <a t-attf-href="/saas/checkout/#{plan.id}" class="btn btn-primary btn-lg me-3">
+                                        Get Started with <t t-esc="plan.name"/>
+                                    </a>
+                                    <a href="/saas/plans" class="btn btn-outline-secondary">
+                                        Compare All Plans
+                                    </a>
+                                </div>
+                                
+                                <t t-if="related_plans">
+                                    <div class="related-plans">
+                                        <h3 class="mb-4">You Might Also Like</h3>
+                                        <div class="row">
+                                            <t t-foreach="related_plans" t-as="related_plan">
+                                                <div class="col-md-4 mb-3">
+                                                    <div class="card">
+                                                        <div class="card-body text-center">
+                                                            <h5 t-esc="related_plan.name"/>
+                                                            <p class="text-muted" t-esc="related_plan.short_description"/>
+                                                            <div class="price mb-3">
+                                                                <span class="h5 text-primary" t-esc="related_plan.display_price"/>
+                                                            </div>
+                                                            <a t-attf-href="/saas/plans/#{related_plan.id}" class="btn btn-outline-primary">
+                                                                View Details
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <!-- No Plans Available -->
+        <template id="no_plans_available" name="No Plans Available">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="container py-5">
+                        <div class="row justify-content-center text-center">
+                            <div class="col-lg-6">
+                                <i class="fa fa-exclamation-triangle fa-3x text-warning mb-4"></i>
+                                <h2>No Plans Available</h2>
+                                <p class="text-muted">We're currently updating our SaaS plans. Please check back soon or contact us for more information.</p>
+                                <a href="/contactus" class="btn btn-primary">Contact Us</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <!-- Plans Error -->
+        <template id="plans_error" name="Plans Error">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="container py-5">
+                        <div class="row justify-content-center text-center">
+                            <div class="col-lg-6">
+                                <i class="fa fa-exclamation-circle fa-3x text-danger mb-4"></i>
+                                <h2>Oops! Something went wrong</h2>
+                                <p class="text-muted" t-esc="error_message"/>
+                                <a href="/saas/plans" class="btn btn-primary">Try Again</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <!-- Test Template -->
+        <template id="test_page" name="Test Page">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="container py-5">
+                        <h1>SaaS Website Plans Test</h1>
+                        <p>If you see this page, the templates are working correctly.</p>
+                        <a href="/saas/plans" class="btn btn-primary">Go to SaaS Plans</a>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

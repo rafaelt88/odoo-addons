@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="menu_hospital_root" name="Hospital Management" sequence="35" web_icon="bss_hospital,static/description/icon.png"/>
+
+    <menuitem id="menu_frontdesk" name="Front Desk" parent="menu_hospital_root"/>
+
+    <menuitem id="menu_patients" name="Patients" parent="menu_frontdesk" action="action_hospital_patient"/>
+
+    <menuitem id="menu_patients_readonly" name="View Patients" parent="menu_frontdesk" action="action_hospital_patient_readonly"/>
+
+    <menuitem id="menu_appointments" name="Appointments" parent="menu_frontdesk" action="action_hospital_appointment"/>
+
+    <menuitem id="menu_appointment_line" name="Appointment Lines" parent="menu_frontdesk" action="action_hospital_appointment_line"/>
+
+    <menuitem id="menu_configuration" name="Configuration" parent="menu_hospital_root" sequence="100"/>
+
+    <menuitem 
+        id="menu_patient_tags" 
+        name="Patient Tags" 
+        parent="menu_configuration" 
+        action="action_patient_tag"
+        groups="bss_hospital.group_hospital_doctors"
+    />
+
+    <menuitem id="menu_billing" name="Billing" parent="menu_hospital_root"/>
+    
+    <menuitem 
+        id="menu_billing_invoice" 
+        name="Invoices" 
+        parent="menu_billing" 
+        action="account.action_move_out_invoice_type"
+    />
+
+    <menuitem 
+        id="menu_billing_payment" 
+        name="Payments" 
+        parent="menu_billing" 
+        action="account.action_account_payments"
+    />
+</odoo>

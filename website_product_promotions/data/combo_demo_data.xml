@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Demo combo data for testing -->
+        <record id="demo_combo_office_setup" model="product.combo">
+            <field name="name">Complete Office Setup Bundle</field>
+            <field name="description">Everything you need for a productive office workspace - save 15%!</field>
+            <field name="discount_percentage">15.0</field>
+            <field name="active" eval="True"/>
+            <field name="website_published" eval="True"/>
+        </record>
+
+        <!-- Combo lines - using default Odoo products -->
+        <record id="demo_combo_line_office_1" model="product.combo.line">
+            <field name="combo_id" ref="demo_combo_office_setup"/>
+            <field name="product_id" ref="product.product_product_5"/>  <!-- Office Chair -->
+            <field name="quantity">1</field>
+            <field name="sequence">10</field>
+        </record>
+
+        <record id="demo_combo_line_office_2" model="product.combo.line">
+            <field name="combo_id" ref="demo_combo_office_setup"/>
+            <field name="product_id" ref="product.product_product_16"/>  <!-- Desk Pad -->
+            <field name="quantity">1</field>
+            <field name="sequence">20</field>
+        </record>
+
+        <!-- Tech Bundle -->
+        <record id="demo_combo_tech_bundle" model="product.combo">
+            <field name="name">Tech Starter Pack</field>
+            <field name="description">Essential tech products for your business - 20% off!</field>
+            <field name="discount_percentage">20.0</field>
+            <field name="active" eval="True"/>
+            <field name="website_published" eval="True"/>
+        </record>
+
+        <record id="demo_combo_line_tech_1" model="product.combo.line">
+            <field name="combo_id" ref="demo_combo_tech_bundle"/>
+            <field name="product_id" ref="product.product_product_11"/>  <!-- Mouse, Optical -->
+            <field name="quantity">1</field>
+            <field name="sequence">10</field>
+        </record>
+
+        <record id="demo_combo_line_tech_2" model="product.combo.line">
+            <field name="combo_id" ref="demo_combo_tech_bundle"/>
+            <field name="product_id" ref="product.product_product_12"/>  <!-- Mouse, Wireless -->
+            <field name="quantity">1</field>
+            <field name="sequence">20</field>
+        </record>
+
+        <record id="demo_combo_line_tech_3" model="product.combo.line">
+            <field name="combo_id" ref="demo_combo_tech_bundle"/>
+            <field name="product_id" ref="product.product_product_25"/>  <!-- Laptop Stand -->
+            <field name="quantity">1</field>
+            <field name="sequence">30</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,219 @@
+/* Product Promotions Styles */
+
+.combo-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.combo-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.combo-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+}
+
+.price-original {
+    font-size: 0.9rem;
+    text-decoration: line-through;
+    color: #6c757d;
+}
+
+.price-combo {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #0d6efd;
+}
+
+.suggestion-section {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 2rem 0;
+}
+
+.suggestion-card {
+    transition: all 0.3s ease;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+}
+
+.suggestion-card:hover {
+    border-color: #0d6efd;
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.15);
+}
+
+.combo-product-item {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.combo-product-item:hover {
+    background: #f8f9fa;
+    border-color: #0d6efd;
+}
+
+.discount-badge {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: white;
+    font-weight: 600;
+    border-radius: 20px;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.8rem;
+}
+
+.upsell-section {
+    border-left: 4px solid #28a745;
+    background: linear-gradient(90deg, rgba(40, 167, 69, 0.05), transparent);
+}
+
+.cross-sell-section {
+    border-left: 4px solid #17a2b8;
+    background: linear-gradient(90deg, rgba(23, 162, 184, 0.05), transparent);
+}
+
+.combo-section {
+    border-left: 4px solid #6f42c1;
+    background: linear-gradient(90deg, rgba(111, 66, 193, 0.05), transparent);
+}
+
+.btn-combo-add {
+    background: linear-gradient(45deg, #0d6efd, #6f42c1);
+    border: none;
+    border-radius: 25px;
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-combo-add:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(13, 110, 253, 0.3);
+}
+
+.combo-savings {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    margin: 1rem 0;
+}
+
+.product-image-combo {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid #e9ecef;
+}
+
+.combo-title {
+    color: #495057;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.combo-title i {
+    margin-right: 0.5rem;
+    color: #6f42c1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .combo-card {
+        margin-bottom: 1rem;
+    }
+
+    .suggestion-section {
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+
+    .btn-combo-add {
+        width: 100%;
+        margin-top: 1rem;
+    }
+}
+
+/* Animation for cart notifications */
+.combo-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1050;
+    animation: slideInRight 0.5s ease;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Loading states */
+.btn-loading {
+    position: relative;
+    color: transparent;
+}
+
+.btn-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -8px 0 0 -8px;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Combo detail page styles */
+.combo-detail-hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 3rem 0;
+    margin-bottom: 2rem;
+}
+
+.combo-product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.combo-action-section {
+    position: sticky;
+    top: 80px;
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}

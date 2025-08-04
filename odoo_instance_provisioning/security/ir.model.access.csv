@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_saas_instance_provisioning_user,saas.instance.provisioning.user,model_saas_instance_provisioning,base.group_user,1,0,0,0
+access_saas_instance_provisioning_manager,saas.instance.provisioning.manager,model_saas_instance_provisioning,base.group_system,1,1,1,1
+access_saas_instance_request_user,saas.instance.request.user,model_saas_instance_request,base.group_user,1,0,0,0
+access_saas_instance_request_manager,saas.instance.request.manager,model_saas_instance_request,base.group_system,1,1,1,1
+access_saas_instance_log_user,saas.instance.provisioning.log.user,model_saas_instance_provisioning_log,base.group_user,1,0,0,0
+access_saas_instance_log_manager,saas.instance.provisioning.log.manager,model_saas_instance_provisioning_log,base.group_system,1,1,1,1

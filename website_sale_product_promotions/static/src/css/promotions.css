@@ -1,0 +1,59 @@
+/* Product Promotions Styles */
+
+.combo-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.combo-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.combo-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+}
+
+.price-original {
+  font-size: 0.9rem;
+  text-decoration: line-through;
+  color: #6c757d;
+}
+
+.price-combo {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #0d6efd;
+}
+
+.suggestion-section {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 2rem 0;
+}
+
+.suggestion-card {
+  transition: all 0.3s ease;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+}
+
+.suggestion-card:hover {
+  border-color: #0d6efd;
+  box-shadow: 0 4px 12px rgba(13, 110, 253, 0.15);
+}
+
+.combo-product-item {
+  background: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  transition: all 0.3s ease;
+}
